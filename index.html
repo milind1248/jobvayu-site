@@ -1,11 +1,201 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-IN">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>JobVayu — Auto apply to jobs on LinkedIn, Naukri &amp; Indeed</title>
-<meta name="description" content="JobVayu is a Chrome extension that fills job applications on LinkedIn, Naukri, Indeed and any careers page from your profile. Review before submit. Plans from ₹49.">
-<link rel="icon" href="icon-128.png">
+<title>JobVayu — Auto Apply to Jobs on LinkedIn, Naukri &amp; Indeed | Chrome Extension</title>
+<meta name="description" content="JobVayu is a Chrome extension that auto-applies to jobs on LinkedIn Easy Apply, Naukri, Indeed and any careers page using your profile and resume. Smart answers, review before submit. Free 5 applications/day; plans from ₹49.">
+<meta name="keywords" content="JobVayu, auto apply jobs, job auto apply extension, LinkedIn Easy Apply automation, Naukri auto apply, Indeed auto apply, job application autofill, AI job apply, Chrome extension for job search, apply to jobs automatically India">
+<meta name="author" content="IndiaCyberMart">
+<meta name="application-name" content="JobVayu">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<link rel="canonical" href="http://jobvayu.cfer.in/">
+<!-- address-bar / home-screen icons -->
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<meta name="theme-color" content="#ea580c">
+<!-- link previews: WhatsApp, Facebook, LinkedIn, Telegram, Slack -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="JobVayu">
+<meta property="og:locale" content="en_IN">
+<meta property="og:url" content="http://jobvayu.cfer.in/">
+<meta property="og:title" content="JobVayu — Auto Apply to Jobs on LinkedIn, Naukri &amp; Indeed">
+<meta property="og:description" content="Chrome extension that fills and submits job applications from your profile. Review before submit. Free 5/day, plans from ₹49.">
+<meta property="og:image" content="http://jobvayu.cfer.in/og-image.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="JobVayu logo — auto-apply to jobs on LinkedIn, Naukri, Indeed and any careers page">
+<!-- X / Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="JobVayu — Auto Apply to Jobs on LinkedIn, Naukri &amp; Indeed">
+<meta name="twitter:description" content="Chrome extension that fills and submits job applications from your profile. Review before submit. Free 5/day, plans from ₹49.">
+<meta name="twitter:image" content="http://jobvayu.cfer.in/og-image.jpg">
+<!-- plain-text summary for AI assistants -->
+<link rel="alternate" type="text/plain" href="llms.txt" title="JobVayu summary for AI tools">
+<script type="application/ld+json">
+[
+ {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "JobVayu",
+  "alternateName": "JobVayu Auto Job Apply",
+  "applicationCategory": "BusinessApplication",
+  "applicationSubCategory": "Job application automation",
+  "operatingSystem": "Windows, macOS, Linux, ChromeOS (Google Chrome)",
+  "browserRequirements": "Requires Google Chrome",
+  "url": "http://jobvayu.cfer.in/",
+  "image": "http://jobvayu.cfer.in/og-image.jpg",
+  "description": "JobVayu is a Chrome extension that auto-applies to jobs on LinkedIn Easy Apply, Naukri, Indeed and any careers page using your profile and resume. Smart answers, review before submit. Free 5 applications/day; plans from ₹49.",
+  "featureList": [
+   "Auto apply on LinkedIn Easy Apply",
+   "Auto apply on Naukri",
+   "Auto apply on Indeed",
+   "Autofill any careers page",
+   "Review before submit",
+   "Smart answers to screening questions",
+   "Optional AI answers (Groq, OpenAI, Gemini)",
+   "Fill profile from resume (PDF/DOCX)",
+   "Application tracker with CSV export"
+  ],
+  "offers": [
+   {
+    "@type": "Offer",
+    "name": "Free",
+    "price": "0",
+    "priceCurrency": "INR",
+    "description": "5 applications per day"
+   },
+   {
+    "@type": "Offer",
+    "name": "1 Day",
+    "price": "49",
+    "priceCurrency": "INR",
+    "description": "1 day, up to 100 applications/day"
+   },
+   {
+    "@type": "Offer",
+    "name": "Monthly",
+    "price": "299",
+    "priceCurrency": "INR",
+    "description": "30 days, up to 150 applications/day"
+   },
+   {
+    "@type": "Offer",
+    "name": "Quarterly",
+    "price": "799",
+    "priceCurrency": "INR",
+    "description": "90 days, up to 300 applications/day, 2 devices"
+   },
+   {
+    "@type": "Offer",
+    "name": "Yearly",
+    "price": "2499",
+    "priceCurrency": "INR",
+    "description": "365 days, up to 300 applications/day, 3 devices"
+   }
+  ],
+  "publisher": {
+   "@type": "Organization",
+   "name": "IndiaCyberMart",
+   "email": "IndiaCyberMart@gmail.com",
+   "url": "http://jobvayu.cfer.in/",
+   "logo": "http://jobvayu.cfer.in/icon-512.png"
+  }
+ },
+ {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+   {
+    "@type": "Question",
+    "name": "What is JobVayu?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "JobVayu is a Chrome extension that fills and submits job applications for you on LinkedIn Easy Apply, Naukri and Indeed, and auto-fills forms on any company careers page, using the profile and resume you save once."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "Which job sites does JobVayu support?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "LinkedIn (Easy Apply), Naukri and Indeed are fully supported for auto-apply. The Autofill button also fills application forms on most other careers pages."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "Is JobVayu free?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Yes. The Free plan allows 5 applications per day. Paid plans: 1 Day ₹49 (100/day), Monthly ₹299 (150/day), Quarterly ₹799 (300/day, 2 devices) and Yearly ₹2499 (300/day, 3 devices)."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "Can I review applications before they are submitted?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Yes. With “Review before submit” switched on, JobVayu pauses on every application so you can submit or skip it yourself."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "How does JobVayu answer screening questions?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "It uses your profile (experience, notice period, CTC, location, skills), a personal answer bank that learns from you, and optionally an AI model (Groq, OpenAI or Gemini) with your own API key."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "Can JobVayu fill my profile from my resume?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Yes. Upload your PDF or Word resume and JobVayu reads it inside your browser and suggests your name, contact details, experience, current job, skills and education for you to confirm."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "Is my data safe?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Your profile, resume and answers are stored only in your own browser. JobVayu does not upload your resume to its servers; only the license key is checked online."
+    }
+   },
+   {
+    "@type": "Question",
+    "name": "How do I buy a license key?",
+    "acceptedAnswer": {
+     "@type": "Answer",
+     "text": "Choose a plan on this page, pay by UPI and submit the UTR/transaction ID. After the payment is verified you receive your license key and installation steps by email. Digital purchases are non-refundable."
+    }
+   }
+  ]
+ },
+ {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "JobVayu",
+  "url": "http://jobvayu.cfer.in/",
+  "inLanguage": "en-IN",
+  "publisher": {
+   "@type": "Organization",
+   "name": "IndiaCyberMart"
+  }
+ }
+]
+</script>
+<script>
+  /* order pages show license keys: keep them out of search. The product summary shows on the home page only. */
+  (function () { var q = new URLSearchParams(location.search);
+    if (q.get('order')) { var r = document.querySelector('meta[name=robots]'); if (r) r.content = 'noindex,nofollow'; }
+    if (q.get('order') || q.get('page')) document.documentElement.classList.add('sub'); })();
+</script>
 <script>
   /* theme: 'auto' | 'light' | 'dark' — applied before paint so there is no flash */
   (function () { var t; try { t = localStorage.getItem('jvTheme'); } catch (e) {}
@@ -57,12 +247,47 @@
   footer span { margin-left:auto; }
   ol li { margin-bottom:6px; }
   .loading { color:var(--mut); padding:40px 0; }
+  .about { margin-top:30px; } .sub .about { display:none; }
+  .about h2 { font-size:22px; margin:0 0 6px; } .about h3 { font-size:16px; margin:18px 0 4px; }
+  .feat { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:12px; margin:14px 0 6px; padding:0; list-style:none; color:inherit; }
+  .feat li { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px; color:var(--mut); font-size:14px; margin:0; }
+  .feat li b { display:block; color:var(--tx); margin-bottom:2px; }
+  .faq details { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin:8px 0; }
+  .faq summary { cursor:pointer; font-weight:700; color:var(--tx); }
+  .faq details p { color:var(--mut); margin:8px 0 0; font-size:14px; }
 </style>
 </head>
 <body>
 <div class="w">
-  <header><img src="icon-128.png" alt=""><h1>Job<span class="g">Vayu</span></h1><button class="thm" id="thm" type="button" title="Switch light / dark">🌓 Auto</button></header>
+  <header><img src="icon-128.png" alt="JobVayu logo" width="44" height="44"><h1>Job<span class="g">Vayu</span></h1><button class="thm" id="thm" type="button" title="Switch light / dark">🌓 Auto</button></header>
   <main id="app"><p class="loading">Loading…</p></main>
+  <section class="about" id="about" aria-labelledby="about-h">
+    <h2 id="about-h">Auto-apply to jobs on LinkedIn, Naukri and Indeed</h2>
+    <p class="m">JobVayu is a Chrome extension that applies to jobs for you. Save your profile and resume once, choose a job search and press <b>Start</b> — JobVayu opens each job, answers the screening questions and submits the application, or pauses so you can review it first. Free plan: 5 applications a day.</p>
+    <ul class="feat">
+      <li><b>LinkedIn Easy Apply</b>Opens each job, fills every step and submits — or waits for your OK.</li>
+      <li><b>Naukri &amp; Indeed</b>Applies through Naukri’s apply flow and Indeed’s smart-apply forms.</li>
+      <li><b>Any careers page</b>One-click Autofill for company job application forms.</li>
+      <li><b>Smart answers</b>Notice period, CTC, experience, skills and yes/no questions answered from your profile.</li>
+      <li><b>Learns from you</b>Answer a new question once; JobVayu remembers it for next time.</li>
+      <li><b>Resume to profile</b>Reads your PDF/Word resume in the browser and fills your profile for you.</li>
+      <li><b>Optional AI</b>Use your own Groq, OpenAI or Gemini key for tricky written answers.</li>
+      <li><b>Private by design</b>Your profile and resume stay in your browser. Only the license key is checked online.</li>
+    </ul>
+    <h3>How it works</h3>
+    <ol class="m"><li>Install the JobVayu extension in Google Chrome.</li><li>Fill your profile — or let JobVayu read it from your resume.</li><li>Open LinkedIn, Naukri or Indeed from the extension and press Start.</li><li>Review each application (optional) and track everything in the dashboard.</li></ol>
+    <div class="faq">
+      <h3>Frequently asked questions</h3>
+      <details><summary>What is JobVayu?</summary><p>JobVayu is a Chrome extension that fills and submits job applications for you on LinkedIn Easy Apply, Naukri and Indeed, and auto-fills forms on any company careers page, using the profile and resume you save once.</p></details>
+      <details><summary>Which job sites does JobVayu support?</summary><p>LinkedIn (Easy Apply), Naukri and Indeed are fully supported for auto-apply. The Autofill button also fills application forms on most other careers pages.</p></details>
+      <details><summary>Is JobVayu free?</summary><p>Yes. The Free plan allows 5 applications per day. Paid plans: 1 Day ₹49 (100/day), Monthly ₹299 (150/day), Quarterly ₹799 (300/day, 2 devices) and Yearly ₹2499 (300/day, 3 devices).</p></details>
+      <details><summary>Can I review applications before they are submitted?</summary><p>Yes. With “Review before submit” switched on, JobVayu pauses on every application so you can submit or skip it yourself.</p></details>
+      <details><summary>How does JobVayu answer screening questions?</summary><p>It uses your profile (experience, notice period, CTC, location, skills), a personal answer bank that learns from you, and optionally an AI model (Groq, OpenAI or Gemini) with your own API key.</p></details>
+      <details><summary>Can JobVayu fill my profile from my resume?</summary><p>Yes. Upload your PDF or Word resume and JobVayu reads it inside your browser and suggests your name, contact details, experience, current job, skills and education for you to confirm.</p></details>
+      <details><summary>Is my data safe?</summary><p>Your profile, resume and answers are stored only in your own browser. JobVayu does not upload your resume to its servers; only the license key is checked online.</p></details>
+      <details><summary>How do I buy a license key?</summary><p>Choose a plan on this page, pay by UPI and submit the UTR/transaction ID. After the payment is verified you receive your license key and installation steps by email. Digital purchases are non-refundable.</p></details>
+    </div>
+  </section>
   <footer>
     <a href="./">Plans</a><a href="?page=privacy">Privacy Policy</a><a href="?page=terms">Terms &amp; Refund</a>
     <a href="mailto:IndiaCyberMart@gmail.com">Contact: IndiaCyberMart@gmail.com</a><span>© <span id="yr"></span> IndiaCyberMart</span>

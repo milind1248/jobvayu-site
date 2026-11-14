@@ -1,0 +1,27 @@
+# JobVayu
+
+> JobVayu is a Google Chrome extension that auto-applies to jobs on LinkedIn (Easy Apply), Naukri and Indeed, and auto-fills application forms on other company careers pages, using the profile and resume the user saves once. Made in India by IndiaCyberMart. Website: http://jobvayu.cfer.in/
+
+## What it does
+- Opens each job in a LinkedIn, Naukri or Indeed search, fills every step of the application and submits it.
+- Optional "Review before submit": pauses on each application so the user submits or skips it.
+- Answers screening questions (notice period, current/expected CTC, years of experience per skill, location, relocation, yes/no questions) from the user's profile.
+- Personal answer bank ("Brain") that remembers answers to new questions.
+- Optional AI answers with the user's own Groq, OpenAI or Gemini API key.
+- Reads a PDF or Word resume inside the browser and fills the profile from it.
+- Dashboard with application history, statistics and CSV export.
+- Privacy: profile, resume and answers are stored only in the user's browser; only the license key is checked online.
+
+## Pricing (INR)
+- Free: 5 applications per day
+- 1 Day: ₹49 — up to 100 applications/day, 1 device
+- Monthly: ₹299 — 30 days, up to 150 applications/day, 1 device
+- Quarterly: ₹799 — 90 days, up to 300 applications/day, 2 devices
+- Yearly: ₹2499 — 365 days, up to 300 applications/day, 3 devices
+Payment by UPI; the license key and installation steps are emailed after the payment is verified. Digital purchases are non-refundable.
+
+## Links
+- Plans and purchase: http://jobvayu.cfer.in/
+- Privacy policy: http://jobvayu.cfer.in/?page=privacy
+- Terms and refund policy: http://jobvayu.cfer.in/?page=terms
+- Contact: IndiaCyberMart@gmail.com

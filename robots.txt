@@ -1,0 +1,7 @@
+# JobVayu — all search engines and AI crawlers welcome; order pages are private
+User-agent: *
+Allow: /
+Disallow: /*?order=
+Disallow: /*&order=
+
+Sitemap: http://jobvayu.cfer.in/sitemap.xml
