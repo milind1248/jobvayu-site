@@ -7,35 +7,38 @@
 <meta name="description" content="JobVayu is a Chrome extension that fills job applications on LinkedIn, Naukri, Indeed and any careers page from your profile. Review before submit. Plans from ₹49.">
 <link rel="icon" href="icon-128.png">
 <style>
-  :root { --bg:#0b1020; --card:#111a2e; --line:#1e293b; --tx:#e2e8f0; --mut:#94a3b8; --teal:#2dd4bf; }
+  /* JobVayu "saffron sunrise" theme (matches the extension) */
+  :root { --bg:#fff8f1; --card:#ffffff; --line:#f1e2d3; --line2:#e6cfb8; --tx:#2b1d14; --mut:#7b6352; --dim:#a8917f;
+          --brand:#ea580c; --accent:#e11d48; --grad:linear-gradient(90deg,#f97316,#e11d48); --shadow:0 10px 30px rgba(124,45,18,.10); }
   * { box-sizing: border-box; }
   body { margin:0; background:var(--bg); color:var(--tx); font:15px/1.5 'Segoe UI',system-ui,-apple-system,Roboto,sans-serif; }
-  a { color:var(--teal); }
+  a { color:var(--brand); }
   .w { max-width:1000px; margin:0 auto; padding:26px 16px 40px; }
   header { display:flex; align-items:center; gap:12px; margin-bottom:6px; }
   header img { width:44px; height:44px; border-radius:11px; }
   h1 { font-size:28px; margin:0; }
-  .g { background:linear-gradient(90deg,#2dd4bf,#818cf8); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .g { background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent; }
   .m { color:var(--mut); }
   .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:14px; margin:22px 0; }
-  .c { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:18px; cursor:pointer; }
-  .c.on { border-color:var(--teal); box-shadow:0 0 0 2px var(--teal); }
+  .c { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:18px; cursor:pointer; box-shadow:var(--shadow); }
+  .c.on { border-color:var(--brand); box-shadow:0 0 0 2px var(--brand), var(--shadow); }
   .p { font-size:30px; font-weight:800; }
-  ul { padding-left:18px; color:#cbd5e1; margin:8px 0 0; }
+  ul { padding-left:18px; color:var(--mut); margin:8px 0 0; }
   .box { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:20px; margin-top:14px; }
-  .warn { border-color:#a16207; background:rgba(161,98,7,.12); }
+  .warn { border-color:#fcd34d; background:#fffbeb; color:#78350f; }
   .pay { display:flex; gap:22px; flex-wrap:wrap; align-items:center; }
-  .qr { width:220px; height:auto; background:#fff; border-radius:12px; padding:8px; }
-  input, select { width:100%; padding:11px; border-radius:10px; border:1px solid #334155; background:#0f172a; color:var(--tx); font:inherit; margin:4px 0 10px; }
+  .qr { width:220px; height:auto; background:#fff; border-radius:12px; padding:8px; border:1px solid var(--line); }
+  input, select { width:100%; padding:11px; border-radius:10px; border:1px solid var(--line2); background:#fff; color:var(--tx); font:inherit; margin:4px 0 10px; }
+  input:focus, select:focus { outline:none; border-color:var(--brand); box-shadow:0 0 0 3px rgba(234,88,12,.15); }
   .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:0 12px; }
   @media (max-width:600px) { .grid2 { grid-template-columns:1fr; } }
-  .btn { display:inline-block; border:0; padding:12px 20px; border-radius:11px; color:#fff; text-decoration:none; font:inherit; font-weight:800; background:linear-gradient(90deg,#0d9488,#4f46e5); cursor:pointer; }
+  .btn { display:inline-block; border:0; padding:12px 20px; border-radius:11px; color:#fff; text-decoration:none; font:inherit; font-weight:800; background:var(--grad); cursor:pointer; box-shadow:0 6px 16px rgba(225,29,72,.25); }
   .btn[disabled] { opacity:.6; cursor:wait; }
-  .key { font:700 24px Consolas,monospace; background:#0f172a; border:1px dashed var(--teal); border-radius:12px; padding:14px 18px; display:inline-block; letter-spacing:1px; word-break:break-all; }
-  .ok { color:#5eead4; } .err { color:#fda4af; }
-  .agree { display:flex; gap:10px; align-items:flex-start; margin:4px 0 14px; color:#cbd5e1; font-size:14px; cursor:pointer; }
-  .agree input { width:18px; height:18px; margin:2px 0 0; flex:none; }
-  footer { margin-top:34px; padding-top:16px; border-top:1px solid var(--line); display:flex; flex-wrap:wrap; gap:18px; font-size:13px; color:#64748b; }
+  .key { font:700 24px Consolas,monospace; background:#fff7ed; color:var(--tx); border:1px dashed var(--brand); border-radius:12px; padding:14px 18px; display:inline-block; letter-spacing:1px; word-break:break-all; }
+  .ok { color:#15803d; } .err { color:#dc2626; }
+  .agree { display:flex; gap:10px; align-items:flex-start; margin:4px 0 14px; color:var(--mut); font-size:14px; cursor:pointer; }
+  .agree input { width:18px; height:18px; margin:2px 0 0; flex:none; accent-color:#ea580c; }
+  footer { margin-top:34px; padding-top:16px; border-top:1px solid var(--line); display:flex; flex-wrap:wrap; gap:18px; font-size:13px; color:var(--dim); }
   footer span { margin-left:auto; }
   ol li { margin-bottom:6px; }
   .loading { color:var(--mut); padding:40px 0; }
@@ -96,7 +99,7 @@ function renderBuy(cfg) {
   app.innerHTML =
     '<h2 style="margin:6px 0 4px">Apply at the speed of wind</h2><p class="m">Auto-apply to jobs on LinkedIn, Naukri and Indeed from your profile. Free plan: 5 applications/day. Pick a plan for more:</p>' +
     '<div class="cards">' + cfg.plans.map(card).join('') + '</div>' +
-    '<div class="box warn"><b style="color:#fcd34d">⚠️ No refunds.</b> JobVayu is a digital product and your license key is delivered online, so <b>all payments are final and non-refundable</b>. Please try the Free plan (5 applications/day) first. <a href="?page=terms">Terms &amp; Refund Policy</a></div>' +
+    '<div class="box warn"><b style="color:#b45309">⚠️ No refunds.</b> JobVayu is a digital product and your license key is delivered online, so <b>all payments are final and non-refundable</b>. Please try the Free plan (5 applications/day) first. <a href="?page=terms">Terms &amp; Refund Policy</a></div>' +
     '<div class="box"><h3 style="margin-top:0">1. Pay <span id="amt"></span> by UPI</h3><div class="pay">' +
       // local copy loads instantly; falls back to the Drive image from CONFIG if the file is missing
       '<img class="qr" src="upi-qr.jpg" alt="UPI QR code" onerror="this.onerror=null;' + (cfg.qr ? 'this.src=\'' + esc(cfg.qr) + '\'' : 'this.remove()') + '">' +
