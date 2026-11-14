@@ -1,0 +1,13 @@
+{
+  "name": "JobVayu — Auto Apply to Jobs",
+  "short_name": "JobVayu",
+  "description": "Chrome extension that auto-applies to jobs on LinkedIn, Naukri and Indeed.",
+  "start_url": "./",
+  "display": "browser",
+  "background_color": "#fff8f1",
+  "theme_color": "#ea580c",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
