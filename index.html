@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>JobVayu — Auto apply to jobs on LinkedIn, Naukri &amp; Indeed</title>
+<meta name="description" content="JobVayu is a Chrome extension that fills job applications on LinkedIn, Naukri, Indeed and any careers page from your profile. Review before submit. Plans from ₹49.">
+<link rel="icon" href="icon-128.png">
+<style>
+  :root { --bg:#0b1020; --card:#111a2e; --line:#1e293b; --tx:#e2e8f0; --mut:#94a3b8; --teal:#2dd4bf; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--tx); font:15px/1.5 'Segoe UI',system-ui,-apple-system,Roboto,sans-serif; }
+  a { color:var(--teal); }
+  .w { max-width:1000px; margin:0 auto; padding:26px 16px 40px; }
+  header { display:flex; align-items:center; gap:12px; margin-bottom:6px; }
+  header img { width:44px; height:44px; border-radius:11px; }
+  h1 { font-size:28px; margin:0; }
+  .g { background:linear-gradient(90deg,#2dd4bf,#818cf8); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .m { color:var(--mut); }
+  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:14px; margin:22px 0; }
+  .c { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:18px; cursor:pointer; }
+  .c.on { border-color:var(--teal); box-shadow:0 0 0 2px var(--teal); }
+  .p { font-size:30px; font-weight:800; }
+  ul { padding-left:18px; color:#cbd5e1; margin:8px 0 0; }
+  .box { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:20px; margin-top:14px; }
+  .warn { border-color:#a16207; background:rgba(161,98,7,.12); }
+  .pay { display:flex; gap:22px; flex-wrap:wrap; align-items:center; }
+  .qr { width:220px; height:auto; background:#fff; border-radius:12px; padding:8px; }
+  input, select { width:100%; padding:11px; border-radius:10px; border:1px solid #334155; background:#0f172a; color:var(--tx); font:inherit; margin:4px 0 10px; }
+  .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:0 12px; }
+  @media (max-width:600px) { .grid2 { grid-template-columns:1fr; } }
+  .btn { display:inline-block; border:0; padding:12px 20px; border-radius:11px; color:#fff; text-decoration:none; font:inherit; font-weight:800; background:linear-gradient(90deg,#0d9488,#4f46e5); cursor:pointer; }
+  .btn[disabled] { opacity:.6; cursor:wait; }
+  .key { font:700 24px Consolas,monospace; background:#0f172a; border:1px dashed var(--teal); border-radius:12px; padding:14px 18px; display:inline-block; letter-spacing:1px; word-break:break-all; }
+  .ok { color:#5eead4; } .err { color:#fda4af; }
+  .agree { display:flex; gap:10px; align-items:flex-start; margin:4px 0 14px; color:#cbd5e1; font-size:14px; cursor:pointer; }
+  .agree input { width:18px; height:18px; margin:2px 0 0; flex:none; }
+  footer { margin-top:34px; padding-top:16px; border-top:1px solid var(--line); display:flex; flex-wrap:wrap; gap:18px; font-size:13px; color:#64748b; }
+  footer span { margin-left:auto; }
+  ol li { margin-bottom:6px; }
+  .loading { color:var(--mut); padding:40px 0; }
+</style>
+</head>
+<body>
+<div class="w">
+  <header><img src="icon-128.png" alt=""><h1>Job<span class="g">Vayu</span></h1></header>
+  <main id="app"><p class="loading">Loading…</p></main>
+  <footer>
+    <a href="./">Plans</a><a href="?page=privacy">Privacy Policy</a><a href="?page=terms">Terms &amp; Refund</a>
+    <a href="mailto:JobVayu@gmail.com">Contact: JobVayu@gmail.com</a><span>© <span id="yr"></span> JobVayu</span>
+  </footer>
+</div>
+
+<script>
+/* JobVayu website. All data comes from the license server (Google Apps Script) in the background,
+ * so visitors never open a script.google.com page (avoids Google's multi-account "unable to open the file" bug). */
+const LIVE_API = 'https://script.google.com/macros/s/AKfycbz0fB73mKcsiauUlKhnZiRSPY-MBeXCAKc0fylL8daTnZ7jRwQ03zPBnPfR5a_6c7bm5Q/exec';
+// Local testing only: ?testapi=http://127.0.0.1:PORT/exec (ignored unless it points at this computer)
+const TEST_API = new URLSearchParams(location.search).get('testapi');
+const API = TEST_API && /^http:\/\/127\.0\.0\.1:\d+\//.test(TEST_API) ? TEST_API : LIVE_API;
+const keep = () => (API === LIVE_API ? '' : '&testapi=' + encodeURIComponent(API));   // keep the test switch on own links
+const SUPPORT = 'JobVayu@gmail.com';
+const app = document.getElementById('app');
+document.getElementById('yr').textContent = new Date().getFullYear();
+const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const q = new URLSearchParams(location.search);
+
+// credentials:'omit' → Google cookies are never sent, so signed-in users can't hit the multi-account bug.
+const apiGet = (params) => fetch(API + '?' + new URLSearchParams(params), { credentials: 'omit' }).then((r) => r.json());
+const apiPost = (body) => fetch(API, { method: 'POST', credentials: 'omit', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(body) }).then((r) => r.json());
+
+function fail(e) { app.innerHTML = '<div class="box"><h2 class="err">Could not load right now</h2><p>Please refresh the page in a minute. If it keeps failing, email <a href="mailto:' + SUPPORT + '">' + SUPPORT + '</a>.</p><p class="m">' + esc(e && e.message || e) + '</p></div>'; }
+
+function installSteps(cfg) {
+  const dl = esc(cfg.download);
+  const s = cfg.installMode === 'store'
+    ? ['Open <a href="' + dl + '" target="_blank">the Chrome Web Store page</a> and click <b>Add to Chrome → Add extension</b>.', 'Click the puzzle icon 🧩 in Chrome and <b>pin JobVayu</b>.']
+    : ['<b>Download</b>: <a href="' + dl + '" target="_blank"><b>Download JobVayu (Google Drive)</b></a>, then click the download ⬇ button.',
+       'Right-click the zip → <b>Extract All</b>. Keep the <b>JobVayu</b> folder in a safe place (for example Documents).',
+       'In Chrome open <b>chrome://extensions</b> and turn on <b>Developer mode</b> (top right).',
+       'Click <b>Load unpacked</b> and select the extracted <b>JobVayu</b> folder (it contains <i>manifest.json</i>).',
+       'Click the puzzle icon 🧩 and <b>pin JobVayu</b>.'];
+  s.push('Click the <b>JobVayu</b> icon, paste your key and press <b>✓</b> — it shows <b>ACTIVE</b>.',
+         'Open the <b>Dashboard</b>, fill <b>Profile</b> and <b>Skills &amp; Resume</b>, then start auto-apply on LinkedIn, Naukri or Indeed.');
+  return '<ol>' + s.map((x) => '<li>' + x + '</li>').join('') + '</ol>' +
+    (cfg.installMode === 'store' ? '' : '<p class="m">Tip: if Chrome shows "Disable developer mode extensions", click <b>Cancel</b>.</p>') +
+    (cfg.tutorial ? '<p>🎬 <a href="' + esc(cfg.tutorial) + '" target="_blank"><b>Watch the step-by-step video tutorial</b></a></p>' : '');
+}
+
+/* ---------------- pricing + order form ---------------- */
+function renderBuy(cfg) {
+  const def = cfg.plans.find((p) => p.id === 'quarterly') || cfg.plans[0];
+  const card = (p) => '<div class="c' + (p.id === def.id ? ' on' : '') + '" data-id="' + p.id + '"><div class="m">' + esc(p.label) + (p.id === 'quarterly' ? ' · Most popular' : '') + '</div>' +
+    '<div class="p">₹' + p.price + '</div><div class="m">' + p.days + (p.days === 1 ? ' day' : ' days') + '</div><ul>' +
+    '<li>Up to ' + p.dailyLimit + ' applications/day</li><li>LinkedIn, Naukri, Indeed + any careers page</li><li>Smart answers + review before submit</li><li>' + p.maxDevices + ' device(s)</li></ul></div>';
+  app.innerHTML =
+    '<h2 style="margin:6px 0 4px">Apply at the speed of wind</h2><p class="m">Auto-apply to jobs on LinkedIn, Naukri and Indeed from your profile. Free plan: 5 applications/day. Pick a plan for more:</p>' +
+    '<div class="cards">' + cfg.plans.map(card).join('') + '</div>' +
+    '<div class="box warn"><b style="color:#fcd34d">⚠️ No refunds.</b> JobVayu is a digital product and your license key is delivered online, so <b>all payments are final and non-refundable</b>. Please try the Free plan (5 applications/day) first. <a href="?page=terms">Terms &amp; Refund Policy</a></div>' +
+    '<div class="box"><h3 style="margin-top:0">1. Pay <span id="amt"></span> by UPI</h3><div class="pay">' +
+      // local copy loads instantly; falls back to the Drive image from CONFIG if the file is missing
+      '<img class="qr" src="upi-qr.jpg" alt="UPI QR code" onerror="this.onerror=null;' + (cfg.qr ? 'this.src=\'' + esc(cfg.qr) + '\'' : 'this.remove()') + '">' +
+      '<div><div class="m">Scan with GPay / PhonePe / Paytm / any UPI app, or pay to:</div><div style="font:700 20px Consolas,monospace;margin:6px 0">' + esc(cfg.upiId) + '</div>' +
+      '<div class="m">Name: ' + esc(cfg.payee) + '</div><p><a class="btn" id="upi" href="#">Pay with UPI app (mobile)</a></p></div></div></div>' +
+    '<div class="box"><h3 style="margin-top:0">2. Send your payment details</h3><p class="m">After paying, copy the <b>UPI transaction ID / UTR</b> (12 digits) from your payment app.</p>' +
+      '<form id="f"><div class="grid2"><div>Plan<select id="plan">' + cfg.plans.map((p) => '<option value="' + p.id + '">' + esc(p.label) + ' — ₹' + p.price + '</option>').join('') + '</select></div>' +
+      '<div>UPI transaction ID / UTR<input id="utr" required placeholder="e.g. 412345678901" inputmode="numeric"></div>' +
+      '<div>Your name<input id="name" required></div><div>Email (key is sent here)<input id="email" type="email" required></div>' +
+      '<div>Mobile (optional)<input id="phone" inputmode="tel"></div></div>' +
+      '<label class="agree"><input type="checkbox" id="agree" required><span>I agree to the <a href="?page=terms">Terms &amp; Refund Policy</a> and understand that <b>payments are non-refundable</b> because JobVayu is a digital product.</span></label>' +
+      '<button class="btn" id="sb" type="submit">Submit payment details</button> <span id="msg"></span></form></div>' +
+    '<p class="m">We confirm payments manually, usually within a few hours. Your key is emailed and shown on your order page.</p>';
+
+  const sel = document.getElementById('plan');
+  const sync = () => {
+    const p = cfg.plans.find((x) => x.id === sel.value);
+    document.querySelectorAll('.c').forEach((c) => c.classList.toggle('on', c.dataset.id === p.id));
+    document.getElementById('amt').textContent = '₹' + p.price;
+    document.getElementById('upi').href = 'upi://pay?pa=' + encodeURIComponent(cfg.upiId) + '&pn=' + encodeURIComponent(cfg.payee) + '&cu=INR&am=' + p.price + '&tn=' + encodeURIComponent(cfg.product);
+  };
+  sel.value = def.id; sync();
+  sel.addEventListener('change', sync);
+  document.querySelectorAll('.c').forEach((c) => c.addEventListener('click', () => { sel.value = c.dataset.id; sync(); document.querySelector('.pay').scrollIntoView({ behavior: 'smooth' }); }));
+  document.getElementById('f').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const b = document.getElementById('sb'), m = document.getElementById('msg');
+    b.disabled = true; m.className = 'm'; m.textContent = 'Submitting…';
+    try {
+      const r = await apiPost({ action: 'order', plan: sel.value, utr: document.getElementById('utr').value, name: document.getElementById('name').value,
+                                email: document.getElementById('email').value, phone: document.getElementById('phone').value, agree: document.getElementById('agree').checked });
+      if (!r.ok) throw new Error(r.error || 'Could not submit');
+      location.href = '?order=' + encodeURIComponent(r.orderId) + keep();
+    } catch (err) { b.disabled = false; m.className = 'err'; m.textContent = err.message; }
+  });
+}
+
+/* ---------------- order status / key ---------------- */
+async function renderOrder(id) {
+  const [o, cfg] = await Promise.all([apiGet({ api: 'order', id }), apiGet({ api: 'config' })]);
+  if (!o.found) { app.innerHTML = '<div class="box"><h2>Order not found</h2><p class="m">Check the link in your email, or contact <a href="mailto:' + SUPPORT + '">' + SUPPORT + '</a>.</p></div>'; return; }
+  const head = '<h2 style="margin:8px 0 2px">Order ' + esc(o.orderId) + '</h2><p class="m">' + (o.trial ? '1-month free trial' : esc(o.plan) + ' plan · ₹' + esc(o.amount)) + ' · UTR ' + esc(o.utr) + '</p>';
+  if (o.status === 'approved' && o.key) {
+    app.innerHTML = head + '<h2 class="ok">✅ ' + (o.trial ? 'Your 1-month free trial is approved' : 'Payment confirmed') + ' — here is your license key</h2>' +
+      '<p><span class="key" id="k">' + esc(o.key) + '</span> <button class="btn" id="cp" style="padding:9px 14px">Copy</button></p>' +
+      '<p><a class="btn" href="' + esc(cfg.download) + '" target="_blank">⬇ Download JobVayu</a></p>' +
+      '<div class="box"><h3 style="margin-top:0">Install in a few simple steps</h3>' + installSteps(cfg) + '</div>' +
+      '<p class="m">The key was also emailed to ' + esc(o.email) + '.</p>';
+    document.getElementById('cp').onclick = function () { navigator.clipboard.writeText(o.key); this.textContent = 'Copied ✓'; };
+  } else if (o.status === 'rejected') {
+    app.innerHTML = head + '<h2 class="err">⚠️ We could not confirm this payment</h2><p>' + esc(o.reason || '') + '</p><p class="m">Reply to our email or write to <a href="mailto:' + SUPPORT + '">' + SUPPORT + '</a> with a payment screenshot.</p>';
+  } else {
+    app.innerHTML = head + '<h2>⏳ Waiting for payment confirmation</h2><p class="m">We check UPI payments manually, usually within a few hours. Refresh this page later — your key will appear here and in your email (' + esc(o.email) + ').</p>' +
+      '<p><a class="btn" href="?order=' + encodeURIComponent(o.orderId) + keep() + '">Refresh status</a></p>';
+  }
+}
+
+/* ---------------- privacy / terms ---------------- */
+const PRIVACY = '<h2>Privacy Policy</h2><p class="m">Effective 13 November 2026 · Contact: ' + SUPPORT + '</p><div class="box">' +
+  '<h3 style="margin-top:0">What JobVayu stores</h3><p>Your profile, skills, resume file, saved answers, settings and application history are stored <b>only in your own browser</b> (Chrome extension storage). We do not upload them to our servers.</p>' +
+  '<h3>What is sent, and to whom</h3><ul><li><b>License check:</b> your license key, a random device ID created at install, and the extension version go to our license server (Google Apps Script) to confirm your plan. With your key we keep the name, email, phone and UPI transaction ID you gave when buying.</li>' +
+  '<li><b>Job sites:</b> when you start auto-apply or autofill, JobVayu enters your answers into application forms on the job site you are using; that site receives your application as if you typed it.</li>' +
+  '<li><b>Optional AI:</b> only if you add your own API key, the question and your profile/resume text go to the AI provider you chose (Groq, OpenAI or Google Gemini).</li>' +
+  '<li><b>Feedback:</b> Send feedback opens your email or Gmail with a message to us; nothing is sent until you press Send.</li></ul>' +
+  '<h3>What we never do</h3><ul><li>We do not sell or share your data.</li><li>We do not track your browsing.</li><li>We do not use your data for advertising or credit decisions.</li></ul>' +
+  '<h3>Your choices</h3><p>Edit or delete your data any time in the JobVayu dashboard (Backup → Reset everything) or by removing the extension. To delete your license and order record, email ' + SUPPORT + '.</p>' +
+  '<h3>Changes</h3><p>We will update this page and its date if the policy changes.</p></div>';
+const TERMS = '<h2>Terms &amp; Refund Policy</h2><p class="m">Effective 13 November 2026 · Contact: ' + SUPPORT + '</p><div class="box">' +
+  '<h3 style="margin-top:0">The service</h3><p>JobVayu is a Chrome extension that helps you fill and submit job applications from your saved profile. A license key unlocks a higher daily limit for the plan period you buy. Keys are personal and work on the number of browsers listed for your plan.</p>' +
+  '<h3>Your responsibilities</h3><ul><li>Check the answers JobVayu fills in. Keep "Review before submit" on until you trust them.</li><li>Job sites (for example LinkedIn, Naukri, Indeed) have their own terms, which may limit automation. You use JobVayu on your accounts at your own responsibility; use Safe speed.</li><li>Do not share, resell or publish your key. We may revoke keys that are misused.</li></ul>' +
+  '<h3>Payments</h3><p>Payments are made by UPI. Your key is issued after we confirm your UPI transaction ID, usually within a few hours. Prices include applicable taxes unless stated otherwise.</p>' +
+  '<h3>No refunds</h3><p>JobVayu is a <b>digital product</b> and the license key is delivered online, so <b>all payments are final and non-refundable</b>, including partly used or unused plan periods. Please try the Free plan (5 applications a day) before you buy. If you face a technical problem, email ' + SUPPORT + ' with your order number and we will help you get JobVayu working.</p>' +
+  '<h3>No guarantee of jobs</h3><p>JobVayu helps you apply faster; it does not guarantee interviews or job offers. The service is provided "as is".</p>' +
+  '<h3>Changes</h3><p>We may update these terms; the date above will change when we do.</p></div>';
+
+/* ---------------- router ---------------- */
+(async function () {
+  try {
+    if (q.get('page') === 'privacy') { app.innerHTML = PRIVACY; document.title = 'Privacy Policy — JobVayu'; return; }
+    if (q.get('page') === 'terms') { app.innerHTML = TERMS; document.title = 'Terms & Refund — JobVayu'; return; }
+    if (q.get('order')) { document.title = 'Your order — JobVayu'; await renderOrder(q.get('order').trim().toUpperCase()); return; }
+    renderBuy(await apiGet({ api: 'config' }));
+  } catch (e) { fail(e); }
+})();
+</script>
+</body>
+</html>
