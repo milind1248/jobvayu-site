@@ -1,5 +1,5 @@
 {
-  "latest": "1.1.0",
+  "latest": "1.2.0",
   "download": "https://drive.google.com/file/d/1HMETRH1GmehxIl4ZL0ZsYlj4I7yo0JHe/view?usp=sharing",
-  "notes": "Job match score (skips weak matches), Company Jobs (beta), fill profile from resume, dark theme, smarter answers and fixes."
+  "notes": "AI Assistant now works with 20 providers: OpenAI, Claude, Gemini, Groq, Microsoft Azure/Foundry, GitHub Models, Mistral, DeepSeek, Grok, OpenRouter, free local Ollama and more."
 }
