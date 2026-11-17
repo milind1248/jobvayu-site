@@ -1,5 +1,5 @@
 {
-  "latest": "1.2.1",
+  "latest": "1.2.4",
   "download": "https://drive.google.com/file/d/1HMETRH1GmehxIl4ZL0ZsYlj4I7yo0JHe/view?usp=sharing",
-  "notes": "New detailed Guide (📖 Guide in the dashboard): what to fill in, every tab and setting explained, troubleshooting. Plus 20 AI providers from v1.2.0."
+  "notes": "Company Jobs: only jobs in your city are shown (Pune means Pune, not Mumbai), and the exact search date is shown and kept in backups. Also: job tabs refresh after updates, backups without AI keys, Min. job match slider."
 }
