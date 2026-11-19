@@ -1,6 +1,6 @@
 # JobVayu
 
-> JobVayu is a Google Chrome extension that auto-applies to jobs on LinkedIn (Easy Apply), Naukri and Indeed, and auto-fills application forms on other company careers pages, using the profile and resume the user saves once. Made in India by IndiaCyberMart. Website: https://jobvayu.cfer.in/
+> JobVayu is a Google Chrome extension that auto-applies to jobs on LinkedIn (Easy Apply), Naukri and Indeed, and auto-fills application forms on other company careers pages, using the profile and resume the user saves once. Made in India by the JobVayu team. Website: https://jobvayu.cfer.in/
 
 ## What it does
 - Opens each job in a LinkedIn, Naukri or Indeed search, fills every step of the application and submits it.
@@ -24,4 +24,4 @@ Payment by UPI; the license key and installation steps are emailed after the pay
 - Plans and purchase: https://jobvayu.cfer.in/
 - Privacy policy: https://jobvayu.cfer.in/?page=privacy
 - Terms and refund policy: https://jobvayu.cfer.in/?page=terms
-- Contact: IndiaCyberMart@gmail.com
+- Contact: JobVayu@gmail.com

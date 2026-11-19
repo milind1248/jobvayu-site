@@ -6,7 +6,7 @@
 <title>JobVayu — Auto Apply to Jobs on LinkedIn, Naukri &amp; Indeed | Chrome Extension</title>
 <meta name="description" content="JobVayu is a Chrome extension that auto-applies to jobs on LinkedIn Easy Apply, Naukri, Indeed and any careers page using your profile and resume. Smart answers, review before submit. Free 5 applications/day; plans from ₹49.">
 <meta name="keywords" content="JobVayu, auto apply jobs, job auto apply extension, LinkedIn Easy Apply automation, Naukri auto apply, Indeed auto apply, job application autofill, AI job apply, Chrome extension for job search, apply to jobs automatically India">
-<meta name="author" content="IndiaCyberMart">
+<meta name="author" content="JobVayu">
 <meta name="application-name" content="JobVayu">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
 <link rel="canonical" href="https://jobvayu.cfer.in/">
@@ -101,8 +101,8 @@
   ],
   "publisher": {
    "@type": "Organization",
-   "name": "IndiaCyberMart",
-   "email": "IndiaCyberMart@gmail.com",
+   "name": "JobVayu",
+   "email": "JobVayu@gmail.com",
    "url": "https://jobvayu.cfer.in/",
    "logo": "https://jobvayu.cfer.in/icon-512.png"
   }
@@ -185,7 +185,7 @@
   "inLanguage": "en-IN",
   "publisher": {
    "@type": "Organization",
-   "name": "IndiaCyberMart"
+   "name": "JobVayu"
   }
  }
 ]
@@ -290,7 +290,7 @@
   </section>
   <footer>
     <a href="./">Plans</a><a href="?page=privacy">Privacy Policy</a><a href="?page=terms">Terms &amp; Refund</a>
-    <a href="mailto:IndiaCyberMart@gmail.com">Contact: IndiaCyberMart@gmail.com</a><span>© <span id="yr"></span> IndiaCyberMart</span>
+    <a href="mailto:JobVayu@gmail.com">Contact: JobVayu@gmail.com</a><span>© <span id="yr"></span> JobVayu</span>
   </footer>
 </div>
 
@@ -302,7 +302,7 @@ const LIVE_API = 'https://script.google.com/macros/s/AKfycbz0fB73mKcsiauUlKhnZiR
 const TEST_API = new URLSearchParams(location.search).get('testapi');
 const API = TEST_API && /^http:\/\/127\.0\.0\.1:\d+\//.test(TEST_API) ? TEST_API : LIVE_API;
 const keep = () => (API === LIVE_API ? '' : '&testapi=' + encodeURIComponent(API));   // keep the test switch on own links
-const SUPPORT = 'IndiaCyberMart@gmail.com';
+const SUPPORT = 'JobVayu@gmail.com';
 const app = document.getElementById('app');
 document.getElementById('yr').textContent = new Date().getFullYear();
 const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
