@@ -1,5 +1,5 @@
 {
-  "latest": "1.2.5",
+  "latest": "1.2.6",
   "download": "https://drive.google.com/file/d/1HMETRH1GmehxIl4ZL0ZsYlj4I7yo0JHe/view?usp=sharing",
-  "notes": "New Downloads page in the dashboard: free ATS-friendly resume templates (IT / Tech, Sales / Business, Fresher), a cover letter template and a bullet-point guide, plus tips on why your resume must be ATS-friendly."
+  "notes": "Naukri & Indeed: JobVayu now applies to the jobs you are viewing - your own search, filters and recommended jobs are kept (Naukri Recommended jobs, Indeed 'Jobs for you'). New 'Jobs to apply' choice in the panel: pick 'New search from my JobVayu profile' only when you want JobVayu to search your Headline keywords."
 }
