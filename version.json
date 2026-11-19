@@ -1,5 +1,5 @@
 {
   "latest": "1.2.6",
   "download": "https://drive.google.com/file/d/1HMETRH1GmehxIl4ZL0ZsYlj4I7yo0JHe/view?usp=sharing",
-  "notes": "Naukri & Indeed: JobVayu now applies to the jobs you are viewing - your own search, filters and recommended jobs are kept (Naukri Recommended jobs, Indeed 'Jobs for you'). New 'Jobs to apply' choice in the panel: pick 'New search from my JobVayu profile' only when you want JobVayu to search your Headline keywords."
+  "notes": "Naukri & Indeed: JobVayu now applies to the jobs you are viewing - your own search, filters and recommended jobs are kept (Naukri Recommended jobs, Indeed 'Jobs for you'). New 'Jobs to apply' toggle in the panel (pick 'Profile search' only when you want JobVayu to search your Headline keywords), a more compact panel and a glowing RUNNING badge."
 }
