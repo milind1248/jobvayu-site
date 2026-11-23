@@ -279,6 +279,7 @@
     <div class="faq">
       <h3>Frequently asked questions</h3>
       <details><summary>What is JobVayu?</summary><p>JobVayu is a Chrome extension that fills and submits job applications for you on LinkedIn Easy Apply, Naukri and Indeed, and auto-fills forms on any company careers page, using the profile and resume you save once.</p></details>
+      <details id="faqVer"><summary>What is the latest version of JobVayu?</summary><p>The latest version is <b id="latestVer">JobVayu v1.3.0</b>. <span id="latestNotes"></span> Download it here: <a id="latestDl" href="https://drive.google.com/file/d/1HMETRH1GmehxIl4ZL0ZsYlj4I7yo0JHe/view?usp=sharing" target="_blank" rel="noopener">JobVayu.zip</a>. Already installed? The JobVayu popup shows the version you have and tells you when a newer one is available.</p></details>
       <details><summary>Which job sites does JobVayu support?</summary><p>LinkedIn (Easy Apply), Naukri and Indeed are fully supported for auto-apply. The Autofill button also fills application forms on most other careers pages.</p></details>
       <details><summary>Is JobVayu free?</summary><p>Yes. The Free plan allows 5 applications per day. Paid plans: 1 Day ₹49 (100/day), Monthly ₹299 (150/day), Quarterly ₹799 (300/day, 2 devices) and Yearly ₹2499 (300/day, 3 devices).</p></details>
       <details><summary>Can I review applications before they are submitted?</summary><p>Yes. With “Review before submit” switched on, JobVayu pauses on every application so you can submit or skip it yourself.</p></details>
@@ -437,6 +438,19 @@ const TERMS = '<h2>Terms &amp; Refund Policy</h2><p class="m">Effective 13 Novem
       try { localStorage.setItem('jvTheme', cur); } catch (e) {}
       b.textContent = label[cur];
     };
+  })();
+</script>
+<script>
+  /* FAQ "What is the latest version?" — read from version.json (the same file the extension checks), so it is always the
+   * version uploaded last. The text in the page is only the fallback if this request fails. */
+  (function () {
+    fetch('version.json?t=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.ok ? r.json() : null; }).then(function (v) {
+      if (!v || !/^\d+(\.\d+)*$/.test(String(v.latest || ''))) return;
+      document.getElementById('latestVer').textContent = 'JobVayu v' + v.latest;
+      var n = String(v.notes || '').trim().slice(0, 600);
+      if (n) document.getElementById('latestNotes').textContent = (/^new\b/i.test(n) ? '' : 'What’s new: ') + n;
+      if (/^https:\/\/drive\.google\.com\//.test(v.download || '')) document.getElementById('latestDl').href = v.download;
+    }).catch(function () { /* keep the fallback text */ });
   })();
 </script>
 </body>
