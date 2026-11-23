@@ -201,9 +201,6 @@
   (function () { var t; try { t = localStorage.getItem('jvTheme'); } catch (e) {}
     if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); })();
 </script>
-<!-- Side "flash" animation (decorative, wide screens only). To remove: delete the next 2 lines. Preview without it: ?fx=off -->
-<link rel="stylesheet" href="fx.css" id="fxcss">
-<script>if (/[?&]fx=off\b/.test(location.search)) document.documentElement.classList.add('nofx');</script>
 <style>
   /* JobVayu "saffron sunrise" theme (matches the extension) */
   :root { --bg:#fff8f1; --card:#ffffff; --line:#f1e2d3; --line2:#e6cfb8; --tx:#2b1d14; --mut:#7b6352; --dim:#a8917f;
