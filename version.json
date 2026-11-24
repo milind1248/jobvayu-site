@@ -1,5 +1,5 @@
 {
-  "latest": "1.3.0",
+  "latest": "1.4.0",
   "download": "https://drive.google.com/file/d/1HMETRH1GmehxIl4ZL0ZsYlj4I7yo0JHe/view?usp=sharing",
-  "notes": "New: AI cover letter for each job - when an application has a cover letter box or asks 'Why should we hire you?', JobVayu writes it for that job (switch it on in Skills & Resume; needs AI Assistant). New: resume vs job keyword check - see which skills each job asks for that your resume is missing (panel button, Applications 'Keywords' column, and 'Most-missed keywords' in Skills & Resume). No AI needed."
+  "notes": "New: Account Safety Guard - keeps each job site under safe daily and hourly numbers and stops if a site shows a limit message or a security check (on by default, Search & Filters). New: Daily scheduled run (paid plans) - JobVayu applies for you every day at the time you choose. Company Jobs now opens inside the Dashboard. Fixed: Naukri 'Jobs on this page' now continues through every job on your list after each application."
 }
