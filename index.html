@@ -255,12 +255,38 @@
   .faq details { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin:8px 0; }
   .faq summary { cursor:pointer; font-weight:700; color:var(--tx); }
   .faq details p { color:var(--mut); margin:8px 0 0; font-size:14px; }
+  .vids { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px; margin:14px 0 6px; }
+  .vid { display:block; background:var(--card); border:1px solid var(--line); border-radius:16px; overflow:hidden; text-decoration:none; color:inherit; box-shadow:var(--shadow); transition:transform .15s, border-color .15s; }
+  .vid:hover, .vid:focus-visible { transform:translateY(-2px); border-color:var(--brand); outline:none; }
+  .vid .th { position:relative; aspect-ratio:16/9; background:var(--line); }
+  .vid .th img { display:block; width:100%; height:100%; object-fit:cover; }
+  .vid .play { position:absolute; inset:0; margin:auto; width:64px; height:44px; border-radius:12px; background:rgba(225,29,72,.92); display:flex; align-items:center; justify-content:center; box-shadow:0 6px 18px rgba(0,0,0,.35); }
+  .vid .play::after { content:""; border-style:solid; border-width:10px 0 10px 17px; border-color:transparent transparent transparent #fff; margin-left:4px; }
+  .vid:hover .play { background:#e11d48; }
+  .vid .tx { padding:12px 14px 14px; }
+  .vid .tx b { display:block; color:var(--tx); font-size:15px; line-height:1.35; }
+  .vid .tx span { display:block; color:var(--mut); font-size:13px; margin-top:4px; }
+  @media (prefers-reduced-motion: reduce) { .vid { transition:none; } .vid:hover { transform:none; } }
 </style>
 </head>
 <body>
 <div class="w">
   <header><img src="icon-128.png" alt="JobVayu logo" width="44" height="44"><h1>Job<span class="g">Vayu</span></h1><button class="thm" id="thm" type="button" title="Switch light / dark">🌓 Auto</button></header>
   <main id="app"><p class="loading">Loading…</p></main>
+  <section class="about" id="tutorials" aria-labelledby="tut-h">
+    <h2 id="tut-h">🎬 Video tutorials</h2>
+    <p class="m">Watch how to set up JobVayu and auto-apply to jobs, step by step.</p>
+    <div class="vids">
+      <a class="vid" href="https://youtu.be/3soFBQoLBN4" target="_blank" rel="noopener">
+        <div class="th"><img src="https://i.ytimg.com/vi/3soFBQoLBN4/maxresdefault.jpg" alt="JobVayu setup tutorial video" width="1280" height="720" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/3soFBQoLBN4/hqdefault.jpg'"><span class="play" aria-hidden="true"></span></div>
+        <div class="tx"><b>Setup tutorial: auto-apply to jobs on LinkedIn, Naukri &amp; Indeed</b><span>Install JobVayu, fill your profile and start your first run · YouTube</span></div>
+      </a>
+      <a class="vid" href="https://youtu.be/yLO38GfVU28" target="_blank" rel="noopener">
+        <div class="th"><img src="https://i.ytimg.com/vi/yLO38GfVU28/maxresdefault.jpg" alt="JobVayu full tour video" width="1280" height="720" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/yLO38GfVU28/hqdefault.jpg'"><span class="play" aria-hidden="true"></span></div>
+        <div class="tx"><b>Full tour: LinkedIn, Naukri, Indeed &amp; company career sites</b><span>Every JobVayu feature, including Company Jobs · YouTube</span></div>
+      </a>
+    </div>
+  </section>
   <section class="about" id="about" aria-labelledby="about-h">
     <h2 id="about-h">Auto-apply to jobs on LinkedIn, Naukri and Indeed</h2>
     <p class="m">JobVayu is a Chrome extension that applies to jobs for you. Save your profile and resume once, choose a job search and press <b>Start</b> — JobVayu opens each job, answers the screening questions and submits the application, or pauses so you can review it first. Free plan: 5 applications a day.</p>
