@@ -415,11 +415,21 @@ function renderBuy(cfg) {
     }
     pay = r;
     const lock = document.getElementById('qrlock');
-    if (pay.qr) {
+    if (pay.qrData || pay.qr) {
       const img = document.createElement('img');
       img.className = 'qr'; img.alt = 'UPI QR code'; img.width = 220;
-      img.onerror = () => { const m = document.createElement('p'); m.className = 'paynote'; m.textContent = 'The QR code did not load — pay to the UPI ID instead.'; img.replaceWith(m); };
-      img.src = pay.qr;
+      // The license server sends the QR picture itself (qrData) — no Google Drive needed. Older servers send only a Drive
+      // address, which Drive sometimes refuses for a moment: retry, then try Drive's other image address, then fall back to text.
+      const q = pay.qr || '';
+      const did = (q.match(/[?&]id=([\w-]+)/) || [])[1];
+      const tries = q ? [q + (q.includes('?') ? '&' : '?') + 'r=' + Date.now()].concat(did ? ['https://drive.google.com/uc?export=view&id=' + did] : []) : [];
+      if (pay.qrData && q) tries.unshift(q);
+      img.onerror = () => {
+        const next = tries.shift();
+        if (next) { setTimeout(() => { img.src = next; }, 1200); return; }
+        const m = document.createElement('p'); m.className = 'paynote'; m.textContent = 'The QR code did not load — pay to the UPI ID instead.'; img.replaceWith(m);
+      };
+      img.src = pay.qrData || q;
       lock.replaceWith(img);
     } else lock.remove();
     const id = document.getElementById('upiId');
