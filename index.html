@@ -233,6 +233,16 @@
   .warn { border-color:var(--warn-line); background:var(--warn-bg); color:var(--warn-tx); }
   .pay { display:flex; gap:22px; flex-wrap:wrap; align-items:center; }
   .qr { width:220px; height:auto; background:#fff; border-radius:12px; padding:8px; border:1px solid var(--line); }
+  .qrlock { position:relative; width:220px; height:220px; border-radius:12px; overflow:hidden; border:1px solid var(--line); background:#fff; flex:none; }
+  .qrfake { position:absolute; inset:-10px; filter:blur(7px); opacity:.6;
+    background: radial-gradient(circle at 18% 18%, #111 0 13%, transparent 14%), radial-gradient(circle at 82% 18%, #111 0 13%, transparent 14%), radial-gradient(circle at 18% 82%, #111 0 13%, transparent 14%),
+      repeating-conic-gradient(#222 0 25%, #fff 0 50%) 0 0/24px 24px; }
+  .qrlock .btn { position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); white-space:nowrap; padding:10px 12px; font-size:14px; }
+  .upiid { font:700 20px Consolas,monospace; margin:6px 0; word-break:break-all; }
+  .upiid.locked { color:var(--dim); letter-spacing:1px; filter:blur(1.5px); user-select:none; }
+  .cpy { margin-left:8px; font:600 12px 'Segoe UI',system-ui,sans-serif; padding:4px 10px; border-radius:8px; border:1px solid var(--line2); background:var(--card); color:var(--tx); cursor:pointer; vertical-align:middle; filter:none; }
+  .paynote { font-size:12.5px; color:var(--dim); margin:6px 0 0; }
+  #upi[hidden] { display:none; }
   input, select { width:100%; padding:11px; border-radius:10px; border:1px solid var(--line2); background:var(--input); color:var(--tx); font:inherit; margin:4px 0 10px; }
   input:focus, select:focus { outline:none; border-color:var(--brand); box-shadow:0 0 0 3px rgba(234,88,12,.15); }
   .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:0 12px; }
@@ -368,11 +378,13 @@ function renderBuy(cfg) {
     '<h2 style="margin:6px 0 4px">🔑 Get your JobVayu license key</h2><p class="m">Auto-apply to jobs on LinkedIn, Naukri and Indeed from your profile. Free plan: 5 applications/day, no key needed. For more: pick a plan, pay by UPI and send the transaction ID — your key is emailed to you (usually within a few hours). Then paste it in JobVayu → License.</p>' +
     '<div class="cards">' + cfg.plans.map(card).join('') + '</div>' +
     '<div class="box warn"><b style="color:var(--warn-tx)">⚠️ No refunds.</b> JobVayu is a digital product and your license key is delivered online, so <b>all payments are final and non-refundable</b>. Please try the Free plan (5 applications/day) first. <a href="?page=terms">Terms &amp; Refund Policy</a></div>' +
-    '<div class="box"><h3 style="margin-top:0">1. Pay <span id="amt"></span> by UPI</h3><div class="pay">' +
-      // local copy loads instantly; falls back to the Drive image from CONFIG if the file is missing
-      '<img class="qr" src="upi-qr.jpg" alt="UPI QR code" onerror="this.onerror=null;' + (cfg.qr ? 'this.src=\'' + esc(cfg.qr) + '\'' : 'this.remove()') + '">' +
-      '<div><div class="m">Scan with GPay / PhonePe / Paytm / any UPI app, or pay to:</div><div style="font:700 20px Consolas,monospace;margin:6px 0">' + esc(cfg.upiId) + '</div>' +
-      '<div class="m">Name: ' + esc(cfg.payee) + '</div><p><a class="btn" id="upi" href="#">Pay with UPI app (mobile)</a></p></div></div></div>' +
+    // Payment details are NOT in the page: they are fetched (?api=pay) only when the visitor presses "Show payment details",
+    // so search engines, scrapers and bots never see the UPI ID or the QR code. The blurred QR is a fake pattern.
+    '<div class="box" id="paybox"><h3 style="margin-top:0">1. Pay <span id="amt"></span> by UPI</h3><div class="pay">' +
+      '<div class="qrlock" id="qrlock"><div class="qrfake" aria-hidden="true"></div><button class="btn" id="reveal" type="button">🔒 Show payment details</button></div>' +
+      '<div><div class="m">Scan with GPay / PhonePe / Paytm / any UPI app, or pay to:</div><div class="upiid locked" id="upiId">•••••••••••••@•••••••••</div>' +
+      '<div class="m">Name: <span id="payee">•••••••••••</span></div><p><a class="btn" id="upi" href="#" hidden>Pay with UPI app (mobile)</a></p>' +
+      '<p class="paynote" id="paynote">🔒 Shown only when you ask — this keeps our payment details away from spam bots.</p></div></div></div>' +
     '<div class="box"><h3 style="margin-top:0">2. Send your payment details</h3><p class="m">After paying, copy the <b>UPI transaction ID / UTR</b> (12 digits) from your payment app.</p>' +
       '<form id="f"><div class="grid2"><div>Plan<select id="plan">' + cfg.plans.map((p) => '<option value="' + p.id + '">' + esc(p.label) + ' — ₹' + p.price + '</option>').join('') + '</select></div>' +
       '<div>UPI transaction ID / UTR<input id="utr" required placeholder="e.g. 412345678901" inputmode="numeric"></div>' +
@@ -387,8 +399,39 @@ function renderBuy(cfg) {
     const p = cfg.plans.find((x) => x.id === sel.value);
     document.querySelectorAll('.c').forEach((c) => c.classList.toggle('on', c.dataset.id === p.id));
     document.getElementById('amt').textContent = '₹' + p.price;
-    document.getElementById('upi').href = 'upi://pay?pa=' + encodeURIComponent(cfg.upiId) + '&pn=' + encodeURIComponent(cfg.payee) + '&cu=INR&am=' + p.price + '&tn=' + encodeURIComponent(cfg.product);
+    if (pay) document.getElementById('upi').href = 'upi://pay?pa=' + encodeURIComponent(pay.upiId) + '&pn=' + encodeURIComponent(pay.payee) + '&cu=INR&am=' + p.price + '&tn=' + encodeURIComponent(pay.product || cfg.product);
   };
+  let pay = null;
+  document.getElementById('reveal').addEventListener('click', async () => {
+    const b = document.getElementById('reveal'), note = document.getElementById('paynote');
+    b.disabled = true; b.textContent = 'Loading…';
+    let r = null;
+    try { r = await apiGet({ api: 'pay' }); } catch (e) { r = null; }
+    if (!(r && r.ok && r.upiId) && cfg.upiId) r = { ok: true, upiId: cfg.upiId, payee: cfg.payee, qr: cfg.qr, product: cfg.product };   // older license server
+    if (!(r && r.ok && r.upiId)) {
+      b.disabled = false; b.textContent = '🔒 Show payment details';
+      note.className = 'paynote err'; note.textContent = (r && r.error) || 'Could not load the payment details — please try again.';
+      return;
+    }
+    pay = r;
+    const lock = document.getElementById('qrlock');
+    if (pay.qr) {
+      const img = document.createElement('img');
+      img.className = 'qr'; img.alt = 'UPI QR code'; img.width = 220;
+      img.onerror = () => { const m = document.createElement('p'); m.className = 'paynote'; m.textContent = 'The QR code did not load — pay to the UPI ID instead.'; img.replaceWith(m); };
+      img.src = pay.qr;
+      lock.replaceWith(img);
+    } else lock.remove();
+    const id = document.getElementById('upiId');
+    id.classList.remove('locked'); id.textContent = pay.upiId;
+    const cp = document.createElement('button'); cp.type = 'button'; cp.className = 'cpy'; cp.textContent = '📋 Copy';
+    cp.addEventListener('click', () => { navigator.clipboard.writeText(pay.upiId).then(() => { cp.textContent = '✓ Copied'; setTimeout(() => { cp.textContent = '📋 Copy'; }, 1500); }).catch(() => {}); });
+    id.appendChild(cp);
+    document.getElementById('payee').textContent = pay.payee || '';
+    document.getElementById('upi').hidden = false;
+    note.className = 'paynote'; note.textContent = 'After paying, send the transaction ID below.';
+    sync();
+  });
   sel.value = def.id; sync();
   sel.addEventListener('change', sync);
   document.querySelectorAll('.c').forEach((c) => c.addEventListener('click', () => { sel.value = c.dataset.id; sync(); document.querySelector('.pay').scrollIntoView({ behavior: 'smooth' }); }));
