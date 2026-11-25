@@ -1,5 +1,5 @@
 {
-  "latest": "1.6.0",
+  "latest": "1.6.1",
   "download": "https://drive.google.com/file/d/1HMETRH1GmehxIl4ZL0ZsYlj4I7yo0JHe/view?usp=sharing",
-  "notes": "New: Share JobVayu - Dashboard > Share JobVayu (or Share in the popup) has buttons for WhatsApp, LinkedIn, Facebook, Instagram, Telegram, X and Email with a ready message you can edit. Also in this version: the Recruiter Email Finder on LinkedIn and help to get a license key on the License page."
+  "notes": "Fix: after updating or reinstalling JobVayu, just paste your license key and press the tick button - the key moves to this browser (up to 3 times in 30 days), no need to email support. Also in 1.6.x: Share JobVayu, the Recruiter Email Finder on LinkedIn and help to get a license key on the License page."
 }
