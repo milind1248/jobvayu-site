@@ -272,6 +272,7 @@
 <body>
 <div class="w">
   <header><img src="icon-128.png" alt="JobVayu logo" width="44" height="44"><h1>Job<span class="g">Vayu</span></h1><button class="thm" id="thm" type="button" title="Switch light / dark">🌓 Auto</button></header>
+  <div id="buy" aria-hidden="true"></div>
   <main id="app"><p class="loading">Loading…</p></main>
   <section class="about" id="tutorials" aria-labelledby="tut-h">
     <h2 id="tut-h">🎬 Video tutorials</h2>
@@ -364,7 +365,7 @@ function renderBuy(cfg) {
     '<div class="p">₹' + p.price + '</div><div class="m">' + p.days + (p.days === 1 ? ' day' : ' days') + '</div><ul>' +
     '<li>Up to ' + p.dailyLimit + ' applications/day</li><li>LinkedIn, Naukri, Indeed + any careers page</li><li>Smart answers + review before submit</li><li>' + p.maxDevices + ' device(s)</li></ul></div>';
   app.innerHTML =
-    '<h2 style="margin:6px 0 4px">Apply at the speed of wind</h2><p class="m">Auto-apply to jobs on LinkedIn, Naukri and Indeed from your profile. Free plan: 5 applications/day. Pick a plan for more:</p>' +
+    '<h2 style="margin:6px 0 4px">🔑 Get your JobVayu license key</h2><p class="m">Auto-apply to jobs on LinkedIn, Naukri and Indeed from your profile. Free plan: 5 applications/day, no key needed. For more: pick a plan, pay by UPI and send the transaction ID — your key is emailed to you (usually within a few hours). Then paste it in JobVayu → License.</p>' +
     '<div class="cards">' + cfg.plans.map(card).join('') + '</div>' +
     '<div class="box warn"><b style="color:var(--warn-tx)">⚠️ No refunds.</b> JobVayu is a digital product and your license key is delivered online, so <b>all payments are final and non-refundable</b>. Please try the Free plan (5 applications/day) first. <a href="?page=terms">Terms &amp; Refund Policy</a></div>' +
     '<div class="box"><h3 style="margin-top:0">1. Pay <span id="amt"></span> by UPI</h3><div class="pay">' +
