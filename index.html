@@ -266,6 +266,14 @@
   .faq summary { cursor:pointer; font-weight:700; color:var(--tx); }
   .faq details p { color:var(--mut); margin:8px 0 0; font-size:14px; }
   .vids { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px; margin:14px 0 6px; }
+  .shares { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:10px; margin:14px 0 6px; }
+  .sh-btn { display:block; border:0; border-radius:11px; padding:11px 12px; font:700 14px 'Segoe UI',system-ui,sans-serif; color:#fff; cursor:pointer; text-align:left; text-decoration:none; transition:transform .1s, filter .1s; }
+  .sh-btn:hover { transform:translateY(-1px); filter:brightness(1.06); }
+  .sh-btn[hidden] { display:none; }
+  .sh-wa { background:#25d366; } .sh-li { background:#0a66c2; } .sh-fb { background:#1877f2; } .sh-tg { background:#229ed9; } .sh-x { background:#111; } .sh-em { background:#6b7280; }
+  .sh-ig { background:linear-gradient(45deg,#f58529,#dd2a7b 55%,#8134af); } .sh-cp { background:var(--card); color:var(--tx); border:1px solid var(--line2); } .sh-nat { background:var(--grad); }
+  .sh-note { min-height:18px; font-size:13px; font-weight:600; color:var(--ok); }
+  @media (prefers-reduced-motion: reduce) { .sh-btn { transition:none; } .sh-btn:hover { transform:none; } }
   .vid { display:block; background:var(--card); border:1px solid var(--line); border-radius:16px; overflow:hidden; text-decoration:none; color:inherit; box-shadow:var(--shadow); transition:transform .15s, border-color .15s; }
   .vid:hover, .vid:focus-visible { transform:translateY(-2px); border-color:var(--brand); outline:none; }
   .vid .th { position:relative; aspect-ratio:16/9; background:var(--line); }
@@ -297,6 +305,22 @@
         <div class="tx"><b>Full tour: LinkedIn, Naukri, Indeed &amp; company career sites</b><span>Every JobVayu feature, including Company Jobs · YouTube</span></div>
       </a>
     </div>
+  </section>
+  <section class="about" id="share" aria-labelledby="share-h">
+    <h2 id="share-h">📣 Share JobVayu</h2>
+    <p class="m">Know someone who is job hunting? Each button opens that app's own share box with a message ready — you choose who gets it.</p>
+    <div class="shares">
+      <a class="sh-btn sh-wa" data-sh="wa" href="https://wa.me/?text=I%27m%20using%20JobVayu%20to%20auto-apply%20to%20jobs%20on%20LinkedIn%2C%20Naukri%20and%20Indeed%20%E2%80%94%20it%20fills%20the%20application%20forms%20for%20you%2C%20and%20you%20check%20each%20one%20before%20it%20is%20sent.%20Free%20to%20try%20%285%20applications%20a%20day%29%3A%20https%3A%2F%2Fjobvayu.cfer.in%2F" target="_blank" rel="noopener">🟢 WhatsApp</a>
+      <a class="sh-btn sh-li" data-sh="li" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fjobvayu.cfer.in%2F" target="_blank" rel="noopener">in LinkedIn</a>
+      <a class="sh-btn sh-fb" data-sh="fb" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fjobvayu.cfer.in%2F" target="_blank" rel="noopener">f Facebook</a>
+      <a class="sh-btn sh-tg" data-sh="tg" href="https://t.me/share/url?url=https%3A%2F%2Fjobvayu.cfer.in%2F&amp;text=I%27m%20using%20JobVayu%20to%20auto-apply%20to%20jobs%20on%20LinkedIn%2C%20Naukri%20and%20Indeed%20%E2%80%94%20it%20fills%20the%20application%20forms%20for%20you%2C%20and%20you%20check%20each%20one%20before%20it%20is%20sent.%20Free%20to%20try%20%285%20applications%20a%20day%29" target="_blank" rel="noopener">✈️ Telegram</a>
+      <a class="sh-btn sh-x" data-sh="x" href="https://twitter.com/intent/tweet?text=I%27m%20using%20JobVayu%20to%20auto-apply%20to%20jobs%20on%20LinkedIn%2C%20Naukri%20and%20Indeed%20%E2%80%94%20it%20fills%20the%20application%20forms%20for%20you%2C%20and%20you%20check%20each%20one%20before%20it%20is%20sent.%20Free%20to%20try%20%285%20applications%20a%20day%29&amp;url=https%3A%2F%2Fjobvayu.cfer.in%2F" target="_blank" rel="noopener">𝕏 X (Twitter)</a>
+      <a class="sh-btn sh-em" data-sh="em" href="mailto:?subject=JobVayu%20%E2%80%94%20auto-apply%20to%20jobs%20on%20LinkedIn%2C%20Naukri%20and%20Indeed&amp;body=I%27m%20using%20JobVayu%20to%20auto-apply%20to%20jobs%20on%20LinkedIn%2C%20Naukri%20and%20Indeed%20%E2%80%94%20it%20fills%20the%20application%20forms%20for%20you%2C%20and%20you%20check%20each%20one%20before%20it%20is%20sent.%20Free%20to%20try%20%285%20applications%20a%20day%29%3A%20https%3A%2F%2Fjobvayu.cfer.in%2F" target="_blank" rel="noopener">✉️ Email</a>
+      <button class="sh-btn sh-ig" type="button" data-sh="instagram">📸 Instagram</button>
+      <button class="sh-btn sh-cp" type="button" data-sh="copy">🔗 Copy link</button>
+      <button class="sh-btn sh-nat" type="button" data-sh="native" hidden>📤 More apps…</button>
+    </div>
+    <div class="sh-note" id="shNote" role="status" aria-live="polite"></div>
   </section>
   <section class="about" id="about" aria-labelledby="about-h">
     <h2 id="about-h">Auto-apply to jobs on LinkedIn, Naukri and Indeed</h2>
@@ -341,6 +365,23 @@ const TEST_API = new URLSearchParams(location.search).get('testapi');
 const API = TEST_API && /^http:\/\/127\.0\.0\.1:\d+\//.test(TEST_API) ? TEST_API : LIVE_API;
 const keep = () => (API === LIVE_API ? '' : '&testapi=' + encodeURIComponent(API));   // keep the test switch on own links
 const SUPPORT = 'JobVayu@gmail.com';
+/* 📣 Share row: plain links for WhatsApp / LinkedIn / Facebook / Telegram / X / Email; Instagram has no web share link,
+ * so it copies the message; "More apps…" appears where the browser has its own share sheet (phones). */
+(function () {
+  const SHARE_URL = 'https://jobvayu.cfer.in/', SHARE_MSG = "I'm using JobVayu to auto-apply to jobs on LinkedIn, Naukri and Indeed — it fills the application forms for you, and you check each one before it is sent. Free to try (5 applications a day): https://jobvayu.cfer.in/";
+  const note = (t) => { const n = document.getElementById('shNote'); if (!n) return; n.textContent = t; clearTimeout(note.t); note.t = setTimeout(() => { n.textContent = ''; }, 4000); };
+  const copy = (t) => (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => true).catch(() => {
+    const a = document.createElement('textarea'); a.value = t; document.body.appendChild(a); a.select(); const ok = document.execCommand('copy'); a.remove(); return ok; });
+  const nat = document.querySelector('[data-sh="native"]');
+  if (nat && navigator.share) nat.hidden = false;
+  document.querySelectorAll('#share [data-sh]').forEach((b) => b.addEventListener('click', async (e) => {
+    const k = b.dataset.sh;
+    if (k === 'copy') { e.preventDefault(); if (await copy(SHARE_URL)) note('✓ Link copied — paste it anywhere.'); }
+    else if (k === 'instagram') { e.preventDefault(); if (await copy(SHARE_MSG)) note('✓ Message copied — paste it in an Instagram story, post or DM.'); window.open('https://www.instagram.com/', '_blank', 'noopener'); }
+    else if (k === 'native') { e.preventDefault(); try { await navigator.share({ title: 'JobVayu', text: SHARE_MSG, url: SHARE_URL }); } catch (err) { /* closed */ } }
+    else if (k === 'li' || k === 'fb') { copy(SHARE_MSG).then((ok) => ok && note('✓ Message copied too — paste it into the post if you like.')); }
+  }));
+})();
 const app = document.getElementById('app');
 document.getElementById('yr').textContent = new Date().getFullYear();
 const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
