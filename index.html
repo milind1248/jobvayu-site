@@ -384,7 +384,7 @@ function renderBuy(cfg) {
       '<div class="qrlock" id="qrlock"><div class="qrfake" aria-hidden="true"></div><button class="btn" id="reveal" type="button">🔒 Show payment details</button></div>' +
       '<div><div class="m">Scan with GPay / PhonePe / Paytm / any UPI app, or pay to:</div><div class="upiid locked" id="upiId">•••••••••••••@•••••••••</div>' +
       '<div class="m">Name: <span id="payee">•••••••••••</span></div><p><a class="btn" id="upi" href="#" hidden>Pay with UPI app (mobile)</a></p>' +
-      '<p class="paynote" id="paynote">🔒 Shown only when you ask — this keeps our payment details away from spam bots.</p></div></div></div>' +
+      '<p class="paynote" id="paynote">🔒 Shown only when you ask.</p></div></div></div>' +
     '<div class="box"><h3 style="margin-top:0">2. Send your payment details</h3><p class="m">After paying, copy the <b>UPI transaction ID / UTR</b> (12 digits) from your payment app.</p>' +
       '<form id="f"><div class="grid2"><div>Plan<select id="plan">' + cfg.plans.map((p) => '<option value="' + p.id + '">' + esc(p.label) + ' — ₹' + p.price + '</option>').join('') + '</select></div>' +
       '<div>UPI transaction ID / UTR<input id="utr" required placeholder="e.g. 412345678901" inputmode="numeric"></div>' +
