@@ -393,11 +393,18 @@ const apiPost = (body) => fetch(API, { method: 'POST', credentials: 'omit', head
 
 function fail(e) { app.innerHTML = '<div class="box"><h2 class="err">Could not load right now</h2><p>Please refresh the page in a minute. If it keeps failing, email <a href="mailto:' + SUPPORT + '">' + SUPPORT + '</a>.</p><p class="m">' + esc(e && e.message || e) + '</p></div>'; }
 
+/* Direct download of the Drive zip: starts the download at once. The Drive preview page says "can't preview"
+ * on phones and hides its ⬇ button, so it is only the second option. */
+const directDl = (u) => { const m = String(u || '').match(/drive\.google\.com\/file\/d\/([\w-]+)/); return m ? 'https://drive.usercontent.google.com/download?id=' + m[1] + '&export=download&confirm=t' : u; };
+function dlButtons(cfg) {
+  if (cfg.installMode === 'store') return '<p><a class="btn" id="dlBtn" href="' + esc(cfg.download) + '" target="_blank">⬇ Add JobVayu to Chrome</a></p>';
+  return '<p><a class="btn" id="dlBtn" href="' + esc(directDl(cfg.download)) + '">⬇ Download JobVayu</a> <span class="m">or <a id="dlDrive" href="' + esc(cfg.download) + '" target="_blank">open it in Google Drive</a></span></p>';
+}
 function installSteps(cfg) {
   const dl = esc(cfg.download);
   const s = cfg.installMode === 'store'
     ? ['Open <a href="' + dl + '" target="_blank">the Chrome Web Store page</a> and click <b>Add to Chrome → Add extension</b>.', 'Click the puzzle icon 🧩 in Chrome and <b>pin JobVayu</b>.']
-    : ['<b>Download</b>: <a href="' + dl + '" target="_blank"><b>Download JobVayu (Google Drive)</b></a>, then click the download ⬇ button.',
+    : ['<b>Download</b>: <a href="' + esc(directDl(cfg.download)) + '"><b>Download JobVayu</b></a> (the zip downloads straight away). If it does not, <a href="' + dl + '" target="_blank">open it in Google Drive</a> and click the download ⬇ button.',
        'Right-click the zip → <b>Extract All</b>. Keep the <b>JobVayu</b> folder in a safe place (for example Documents).',
        'In Chrome open <b>chrome://extensions</b> and turn on <b>Developer mode</b> (top right).',
        'Click <b>Load unpacked</b> and select the extracted <b>JobVayu</b> folder (it contains <i>manifest.json</i>).',
@@ -507,7 +514,7 @@ async function renderOrder(id) {
   if (o.status === 'approved' && o.key) {
     app.innerHTML = head + '<h2 class="ok">✅ ' + (o.trial ? 'Your 1-month free trial is approved' : 'Payment confirmed') + ' — here is your license key</h2>' +
       '<p><span class="key" id="k">' + esc(o.key) + '</span> <button class="btn" id="cp" style="padding:9px 14px">Copy</button></p>' +
-      '<p><a class="btn" href="' + esc(cfg.download) + '" target="_blank">⬇ Download JobVayu</a></p>' +
+      dlButtons(cfg) +
       '<div class="box"><h3 style="margin-top:0">Install in a few simple steps</h3>' + installSteps(cfg) + '</div>' +
       '<p class="m">The key was also emailed to ' + esc(o.email) + '.</p>';
     document.getElementById('cp').onclick = function () { navigator.clipboard.writeText(o.key); this.textContent = 'Copied ✓'; };
@@ -515,7 +522,9 @@ async function renderOrder(id) {
     app.innerHTML = head + '<h2 class="err">⚠️ We could not confirm this payment</h2><p>' + esc(o.reason || '') + '</p><p class="m">Reply to our email or write to <a href="mailto:' + SUPPORT + '">' + SUPPORT + '</a> with a payment screenshot.</p>';
   } else {
     app.innerHTML = head + '<h2>⏳ Waiting for payment confirmation</h2><p class="m">We check UPI payments manually, usually within a few hours. Refresh this page later — your key will appear here and in your email (' + esc(o.email) + ').</p>' +
-      '<p><a class="btn" href="?order=' + encodeURIComponent(o.orderId) + keep() + '">Refresh status</a></p>';
+      '<p><a class="btn" href="?order=' + encodeURIComponent(o.orderId) + keep() + '">Refresh status</a></p>' +
+      '<div class="box" id="installNow"><h3 style="margin-top:0">Install JobVayu now</h3><p class="m">You can install it while you wait and use the Free plan (5 applications a day). When your key arrives, paste it in JobVayu → License.</p>' +
+      dlButtons(cfg) + installSteps(cfg) + '</div>';
   }
 }
 
