@@ -1,5 +1,5 @@
 {
-  "latest": "1.6.1",
+  "latest": "1.6.2",
   "download": "https://drive.google.com/file/d/1HMETRH1GmehxIl4ZL0ZsYlj4I7yo0JHe/view?usp=sharing",
-  "notes": "Fix: after updating or reinstalling JobVayu, just paste your license key and press the tick button - the key moves to this browser (up to 3 times in 30 days), no need to email support. Also in 1.6.x: Share JobVayu, the Recruiter Email Finder on LinkedIn and help to get a license key on the License page."
+  "notes": "JobVayu now checks for new versions every 3 hours, and is ready for the Chrome Web Store. Also in 1.6.x: after updating or reinstalling, paste your key and press the tick button - it moves to this browser; Share JobVayu; the Recruiter Email Finder on LinkedIn."
 }
