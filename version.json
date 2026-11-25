@@ -1,5 +1,5 @@
 {
-  "latest": "1.5.0",
+  "latest": "1.6.0",
   "download": "https://drive.google.com/file/d/1HMETRH1GmehxIl4ZL0ZsYlj4I7yo0JHe/view?usp=sharing",
-  "notes": "New: Recruiter Email Finder on LinkedIn - the panel's new Emails tab lists hiring posts on your screen whose author shared an email, with suggested post searches from your Headline, Copy and Save (saved emails link back to the post). New: Dashboard > License shows how to get a license key. The panel is a little wider, and backups now include your saved recruiter emails and AI-written cover letters."
+  "notes": "New: Share JobVayu - Dashboard > Share JobVayu (or Share in the popup) has buttons for WhatsApp, LinkedIn, Facebook, Instagram, Telegram, X and Email with a ready message you can edit. Also in this version: the Recruiter Email Finder on LinkedIn and help to get a license key on the License page."
 }
