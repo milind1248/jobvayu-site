@@ -1,5 +1,5 @@
 {
   "latest": "1.7.0",
   "download": "https://drive.google.com/file/d/1HMETRH1GmehxIl4ZL0ZsYlj4I7yo0JHe/view?usp=sharing",
-  "notes": "IMPORTANT, do this once: before updating, open Dashboard - Backup - Export backup. Then extract the new zip, Load unpacked the new folder, and Import the backup there - your license key now comes back by itself. From 1.7.0 on, every future update keeps your profile, companies, saved emails and key automatically - just Load unpacked the new folder and never press Remove."
+  "notes": "IMPORTANT - this update is different, follow these 4 steps once: 1) Before updating, open Dashboard - Backup - Export backup. 2) Extract the new zip into a NEW folder (for example Documents\\JobVayu). Do NOT copy it over your old JobVayu folder. 3) Open chrome://extensions - Load unpacked - select the new folder. 4) In the new JobVayu, open Dashboard - Backup - Import backup: your profile, companies, saved emails and license key all come back. Then remove the old JobVayu. From 1.7.0 on, every future update keeps everything automatically."
 }
