@@ -1,5 +1,5 @@
 {
-  "latest": "1.6.2",
+  "latest": "1.7.0",
   "download": "https://drive.google.com/file/d/1HMETRH1GmehxIl4ZL0ZsYlj4I7yo0JHe/view?usp=sharing",
-  "notes": "JobVayu now checks for new versions every 3 hours, and is ready for the Chrome Web Store. Also in 1.6.x: after updating or reinstalling, paste your key and press the tick button - it moves to this browser; Share JobVayu; the Recruiter Email Finder on LinkedIn."
+  "notes": "IMPORTANT, do this once: before updating, open Dashboard - Backup - Export backup. Then extract the new zip, Load unpacked the new folder, and Import the backup there - your license key now comes back by itself. From 1.7.0 on, every future update keeps your profile, companies, saved emails and key automatically - just Load unpacked the new folder and never press Remove."
 }
