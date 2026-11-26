@@ -265,7 +265,9 @@
   .faq details { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin:8px 0; }
   .faq summary { cursor:pointer; font-weight:700; color:var(--tx); }
   .faq details p { color:var(--mut); margin:8px 0 0; font-size:14px; }
-  .vids { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px; margin:14px 0 6px; }
+  .vids { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin:14px 0 6px; }
+  @media (max-width:820px) { .vids { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+  @media (max-width:540px) { .vids { grid-template-columns:1fr; } }
   .shares { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:10px; margin:14px 0 6px; }
   .sh-btn { display:block; border:0; border-radius:11px; padding:11px 12px; font:700 14px 'Segoe UI',system-ui,sans-serif; color:#fff; cursor:pointer; text-align:left; text-decoration:none; transition:transform .1s, filter .1s; }
   .sh-btn:hover { transform:translateY(-1px); filter:brightness(1.06); }
@@ -278,12 +280,14 @@
   .vid:hover, .vid:focus-visible { transform:translateY(-2px); border-color:var(--brand); outline:none; }
   .vid .th { position:relative; aspect-ratio:16/9; background:var(--line); }
   .vid .th img { display:block; width:100%; height:100%; object-fit:cover; }
-  .vid .play { position:absolute; inset:0; margin:auto; width:64px; height:44px; border-radius:12px; background:rgba(225,29,72,.92); display:flex; align-items:center; justify-content:center; box-shadow:0 6px 18px rgba(0,0,0,.35); }
+  .vid .play { position:absolute; inset:0; margin:auto; width:54px; height:38px; border-radius:12px; background:rgba(225,29,72,.92); display:flex; align-items:center; justify-content:center; box-shadow:0 6px 18px rgba(0,0,0,.35); }
   .vid .play::after { content:""; border-style:solid; border-width:10px 0 10px 17px; border-color:transparent transparent transparent #fff; margin-left:4px; }
   .vid:hover .play { background:#e11d48; }
-  .vid .tx { padding:12px 14px 14px; }
-  .vid .tx b { display:block; color:var(--tx); font-size:15px; line-height:1.35; }
-  .vid .tx span { display:block; color:var(--mut); font-size:13px; margin-top:4px; }
+  .vid .tx { padding:10px 12px 12px; }
+  .vid .tx b { display:block; color:var(--tx); font-size:14px; line-height:1.35; }
+  .vid .tx span { display:block; color:var(--mut); font-size:12.5px; margin-top:4px; }
+  .vid .badge { position:absolute; right:8px; bottom:8px; background:var(--brand); color:#fff; font-size:12px; font-weight:700; padding:3px 9px; border-radius:999px; box-shadow:0 2px 8px rgba(0,0,0,.3); }
+  .vid.main { border-color:var(--brand); }
   @media (prefers-reduced-motion: reduce) { .vid { transition:none; } .vid:hover { transform:none; } }
 </style>
 </head>
@@ -296,6 +300,10 @@
     <h2 id="tut-h">🎬 Video tutorials</h2>
     <p class="m">Watch how to set up JobVayu and auto-apply to jobs, step by step.</p>
     <div class="vids">
+      <a class="vid main" href="https://youtu.be/4YF2IO8_QBY" target="_blank" rel="noopener">
+        <div class="th"><img src="https://i.ytimg.com/vi/4YF2IO8_QBY/maxresdefault.jpg" alt="JobVayu complete setup guide and full overview video" width="1280" height="720" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/4YF2IO8_QBY/hqdefault.jpg'"><span class="badge">⭐ Start here</span><span class="play" aria-hidden="true"></span></div>
+        <div class="tx"><b>Complete setup guide &amp; full overview</b><span>Install, key, every menu, real runs on LinkedIn, Naukri &amp; Indeed, Company Jobs, Email Finder · 22 min · YouTube</span></div>
+      </a>
       <a class="vid" href="https://youtu.be/3soFBQoLBN4" target="_blank" rel="noopener">
         <div class="th"><img src="https://i.ytimg.com/vi/3soFBQoLBN4/maxresdefault.jpg" alt="JobVayu setup tutorial video" width="1280" height="720" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/3soFBQoLBN4/hqdefault.jpg'"><span class="play" aria-hidden="true"></span></div>
         <div class="tx"><b>Setup tutorial: auto-apply to jobs on LinkedIn, Naukri &amp; Indeed</b><span>Install JobVayu, fill your profile and start your first run · YouTube</span></div>
