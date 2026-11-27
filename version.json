@@ -1,5 +1,5 @@
 {
   "latest": "1.7.1",
   "download": "https://drive.google.com/file/d/1HMETRH1GmehxIl4ZL0ZsYlj4I7yo0JHe/view?usp=sharing",
-  "notes": "New in 1.7.1: clearer labels (My Answers, Current activity, Human Like, START AUTOMATIC APPLY), a new header tagline and an updated guide. How to update: 1) Dashboard - Backup - Export backup (just to be safe). 2) Download and extract the new zip to any folder. 3) chrome://extensions - Load unpacked - select the new folder. Do not press Remove: the new version replaces the old one and keeps your profile, companies, saved emails and license key. If you are still on a version older than 1.7.0, also do Dashboard - Backup - Import backup after loading."
+  "notes": "New in 1.7.1: clearer labels (My Answers, Current activity, Human Like), new header tagline, updated guide. To update: export a backup, extract the new zip to any folder, then chrome://extensions - Load unpacked - pick that folder. Do not press Remove: all your data and license are kept."
 }
