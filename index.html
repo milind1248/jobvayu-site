@@ -213,7 +213,10 @@
   @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#15100c; --card:#1c1510; --line:#33261c; --line2:#4a3727; --tx:#f6ebe1; --mut:#c4ab96; --dim:#8f7765;
           --brand:#fb923c; --accent:#fb7185; --shadow:0 10px 30px rgba(0,0,0,.45);
           --input:#120d0a; --key:#2a1a10; --warn-bg:#2b2210; --warn-line:#6b5216; --warn-tx:#fcd34d; --ok:#4ade80; --bad:#f87171; color-scheme:dark; } }
-  .thm { margin-left:auto; border:1px solid var(--line2); background:var(--card); color:var(--tx); border-radius:999px; padding:6px 12px; font:600 13px 'Segoe UI',system-ui,sans-serif; cursor:pointer; }
+  .cws { margin-left:auto; background:var(--grad); color:#fff; box-shadow:0 4px 12px rgba(225,29,72,.25); text-decoration:none; border-radius:999px; padding:7px 14px; font:700 13px 'Segoe UI',system-ui,sans-serif; white-space:nowrap; }
+  .cws:hover { filter:brightness(1.08); }
+  @media (max-width:440px) { header { flex-wrap:wrap; } .thm { margin-left:auto; } .cws { order:3; margin-left:0; flex-basis:100%; text-align:center; padding:9px 14px; font-size:14px; } }
+  .thm { margin-left:0; border:1px solid var(--line2); background:var(--card); color:var(--tx); border-radius:999px; padding:6px 12px; font:600 13px 'Segoe UI',system-ui,sans-serif; cursor:pointer; }
   .thm:hover { border-color:var(--brand); color:var(--brand); }
   * { box-sizing: border-box; }
   body { margin:0; background:var(--bg); color:var(--tx); font:15px/1.5 'Segoe UI',system-ui,-apple-system,Roboto,sans-serif; }
@@ -293,16 +296,16 @@
 </head>
 <body>
 <div class="w">
-  <header><img src="icon-128.png" alt="JobVayu logo" width="44" height="44"><h1>Job<span class="g">Vayu</span></h1><button class="thm" id="thm" type="button" title="Switch light / dark">🌓 Auto</button></header>
+  <header><img src="icon-128.png" alt="JobVayu logo" width="44" height="44"><h1>Job<span class="g">Vayu</span></h1><a class="cws" id="cws" href="https://chromewebstore.google.com/detail/jobvayu-%E2%80%93-ai-auto-job-app/lndgpkegiegcacfmbcilnhiphkpoegnj" target="_blank" rel="noopener" title="Install JobVayu from the Chrome Web Store">⬇ Add to Chrome</a><button class="thm" id="thm" type="button" title="Switch light / dark">🌓 Auto</button></header>
   <div id="buy" aria-hidden="true"></div>
   <main id="app"><p class="loading">Loading…</p></main>
   <section class="about" id="tutorials" aria-labelledby="tut-h">
     <h2 id="tut-h">🎬 Video tutorials</h2>
-    <p class="m">Watch how to set up JobVayu and auto-apply to jobs, step by step.</p>
+    <p class="m">Watch how to set up JobVayu and auto-apply to jobs, step by step. Install it free from the <a href="https://chromewebstore.google.com/detail/jobvayu-%E2%80%93-ai-auto-job-app/lndgpkegiegcacfmbcilnhiphkpoegnj" target="_blank" rel="noopener"><b>Chrome Web Store</b></a>.</p>
     <div class="vids">
-      <a class="vid main" href="https://youtu.be/4YF2IO8_QBY" target="_blank" rel="noopener">
-        <div class="th"><img src="https://i.ytimg.com/vi/4YF2IO8_QBY/maxresdefault.jpg" alt="JobVayu complete setup guide and full overview video" width="1280" height="720" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/4YF2IO8_QBY/hqdefault.jpg'"><span class="badge">⭐ Start here</span><span class="play" aria-hidden="true"></span></div>
-        <div class="tx"><b>Complete setup guide &amp; full overview</b><span>Install, key, every menu, real runs on LinkedIn, Naukri &amp; Indeed, Company Jobs, Email Finder · 22 min · YouTube</span></div>
+      <a class="vid main" href="https://youtu.be/1tU0MOoqfDM" target="_blank" rel="noopener">
+        <div class="th"><img src="https://i.ytimg.com/vi/1tU0MOoqfDM/maxresdefault.jpg" alt="JobVayu full tutorial: auto-apply to jobs on LinkedIn, Naukri and Indeed" width="1280" height="720" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/1tU0MOoqfDM/hqdefault.jpg'"><span class="badge">⭐ Start here</span><span class="play" aria-hidden="true"></span></div>
+        <div class="tx"><b>Full tutorial: auto-apply on LinkedIn, Naukri &amp; Indeed</b><span>Add to Chrome, key, every menu, real runs, Company Jobs, Recruiter Email Finder · YouTube</span></div>
       </a>
       <a class="vid" href="https://youtu.be/3soFBQoLBN4" target="_blank" rel="noopener">
         <div class="th"><img src="https://i.ytimg.com/vi/3soFBQoLBN4/maxresdefault.jpg" alt="JobVayu setup tutorial video" width="1280" height="720" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/3soFBQoLBN4/hqdefault.jpg'"><span class="play" aria-hidden="true"></span></div>
