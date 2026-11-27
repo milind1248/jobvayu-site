@@ -1,5 +1,5 @@
 {
-  "latest": "1.7.1",
+  "latest": "1.7.2",
   "download": "https://drive.google.com/file/d/1HMETRH1GmehxIl4ZL0ZsYlj4I7yo0JHe/view?usp=sharing",
-  "notes": "New in 1.7.1: clearer labels (My Answers, Current activity, Human Like), new header tagline, updated guide. To update: export a backup, extract the new zip to any folder, then chrome://extensions - Load unpacked - pick that folder. Do not press Remove: all your data and license are kept."
+  "notes": "New in 1.7.2: JobVayu messages (offers and news) now appear in the popup, panel and Dashboard; close any with X. To update: export a backup, extract the new zip to any folder, then chrome://extensions - Load unpacked - pick that folder. Do not press Remove: your data and license are kept."
 }
