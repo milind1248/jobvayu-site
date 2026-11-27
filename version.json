@@ -1,5 +1,5 @@
 {
-  "latest": "1.7.0",
+  "latest": "1.7.1",
   "download": "https://drive.google.com/file/d/1HMETRH1GmehxIl4ZL0ZsYlj4I7yo0JHe/view?usp=sharing",
-  "notes": "IMPORTANT - this update is different, follow these 4 steps once: 1) Before updating, open Dashboard - Backup - Export backup. 2) Extract the new zip into a NEW folder (for example Documents\\JobVayu). Do NOT copy it over your old JobVayu folder. 3) Open chrome://extensions - Load unpacked - select the new folder. 4) In the new JobVayu, open Dashboard - Backup - Import backup: your profile, companies, saved emails and license key all come back. Then remove the old JobVayu. From 1.7.0 on, every future update keeps everything automatically."
+  "notes": "New in 1.7.1: clearer labels (My Answers, Current activity, Human Like, START AUTOMATIC APPLY), a new header tagline and an updated guide. How to update: 1) Dashboard - Backup - Export backup (just to be safe). 2) Download and extract the new zip to any folder. 3) chrome://extensions - Load unpacked - select the new folder. Do not press Remove: the new version replaces the old one and keeps your profile, companies, saved emails and license key. If you are still on a version older than 1.7.0, also do Dashboard - Backup - Import backup after loading."
 }
