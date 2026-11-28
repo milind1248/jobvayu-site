@@ -478,6 +478,7 @@ function renderBuy(cfg) {
   let pay = null;
   document.getElementById('reveal').addEventListener('click', async () => {
     const b = document.getElementById('reveal'), note = document.getElementById('paynote');
+    jvHit('pay');
     b.disabled = true; b.textContent = 'Loading…';
     let r = null;
     try { r = await apiGet({ api: 'pay' }); } catch (e) { r = null; }
@@ -555,12 +556,13 @@ async function renderOrder(id) {
 }
 
 /* ---------------- privacy / terms ---------------- */
-const PRIVACY = '<h2>Privacy Policy</h2><p class="m">Effective 13 November 2026 · Contact: ' + SUPPORT + '</p><div class="box">' +
+const PRIVACY = '<h2>Privacy Policy</h2><p class="m">Effective 28 November 2026 · Contact: ' + SUPPORT + '</p><div class="box">' +
   '<h3 style="margin-top:0">What JobVayu stores</h3><p>Your profile, skills, resume file, saved answers, settings and application history are stored <b>only in your own browser</b> (Chrome extension storage). We do not upload them to our servers.</p>' +
   '<h3>What is sent, and to whom</h3><ul><li><b>License check:</b> your license key, a random device ID created at install, and the extension version go to our license server (Google Apps Script) to confirm your plan. With your key we keep the name, email, phone and UPI transaction ID you gave when buying.</li>' +
   '<li><b>Job sites:</b> when you start auto-apply or autofill, JobVayu enters your answers into application forms on the job site you are using; that site receives your application as if you typed it.</li>' +
   '<li><b>Optional AI:</b> only if you add your own API key, the question and your profile/resume text go to the AI provider you chose (Groq, OpenAI or Google Gemini).</li>' +
-  '<li><b>Feedback:</b> Send feedback opens your email or Gmail with a message to us; nothing is sent until you press Send.</li></ul>' +
+  '<li><b>Feedback:</b> Send feedback opens your email or Gmail with a message to us; nothing is sent until you press Send.</li>' +
+  '<li><b>This website:</b> we count visits anonymously (page opens, clicks on Add to Chrome and Show payment details, phone or desktop, and whether you came from a search engine, YouTube or social media). We use no cookies and do not record IP addresses, names or IDs. Your browser only keeps the date of your last visit.</li></ul>' +
   '<h3>What we never do</h3><ul><li>We do not sell or share your data.</li><li>We do not track your browsing.</li><li>We do not use your data for advertising or credit decisions.</li></ul>' +
   '<h3>Your choices</h3><p>Edit or delete your data any time in the JobVayu dashboard (Backup → Reset everything) or by removing the extension. To delete your license and order record, email ' + SUPPORT + '.</p>' +
   '<h3>Changes</h3><p>We will update this page and its date if the policy changes.</p></div>';
@@ -571,6 +573,41 @@ const TERMS = '<h2>Terms &amp; Refund Policy</h2><p class="m">Effective 13 Novem
   '<h3>No refunds</h3><p>JobVayu is a <b>digital product</b> and the license key is delivered online, so <b>all payments are final and non-refundable</b>, including partly used or unused plan periods. Please try the Free plan (5 applications a day) before you buy. If you face a technical problem, email ' + SUPPORT + ' with your order number and we will help you get JobVayu working.</p>' +
   '<h3>No guarantee of jobs</h3><p>JobVayu helps you apply faster; it does not guarantee interviews or job offers. The service is provided "as is".</p>' +
   '<h3>Changes</h3><p>We may update these terms; the date above will change when we do.</p></div>';
+
+/* ---------------- anonymous visit counter ----------------
+ * Counts page opens and clicks on "Add to Chrome" / "Show payment details" into the license Sheet's Visits tab.
+ * No cookies, no IP addresses, no names or IDs: only "phone or desktop", where the visit came from (Google, YouTube, …)
+ * and the date of this browser's last visit (kept in this browser only, to count visitors without an ID).
+ * Sent with sendBeacon after the page has loaded, so it never slows the page or shows anything to the visitor.
+ * Owner's own visits: open the site once with ?nocount=1 to stop counting this browser (?nocount=0 to undo). */
+const jvStore = { get: (k) => { try { return localStorage.getItem(k); } catch (e) { return null; } }, set: (k, v) => { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (e) { /* private mode */ } } };
+if (q.get('nocount') === '1') jvStore.set('jv_nocount', '1');
+if (q.get('nocount') === '0') jvStore.set('jv_nocount', null);
+function jvHit(e, extra) {
+  try {
+    if (navigator.webdriver || jvStore.get('jv_nocount') === '1' || API !== LIVE_API) return;   // bots, owner, local tests
+    const body = JSON.stringify(Object.assign({ action: 'hit', e }, extra || {}));
+    const sent = navigator.sendBeacon && navigator.sendBeacon(API, new Blob([body], { type: 'text/plain;charset=UTF-8' }));
+    if (!sent) fetch(API, { method: 'POST', mode: 'no-cors', keepalive: true, credentials: 'omit', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body }).catch(() => {});
+  } catch (err) { /* counting must never break the page */ }
+}
+function jvSource() {
+  let h = '';
+  try { h = new URL(document.referrer).hostname.toLowerCase(); } catch (e) { /* no referrer */ }
+  if (!h || h === location.hostname) return 'd';
+  if (/chromewebstore\.google\.com$|^chrome\.google\.com$/.test(h)) return 'c';
+  if (/(^|\.)google\.[a-z.]+$/.test(h)) return 'g';
+  if (/(^|\.)youtube\.com$|(^|\.)youtu\.be$/.test(h)) return 'y';
+  if (/whatsapp|(^|\.)wa\.me$|facebook|(^|\.)fb\.|instagram|linkedin|lnkd\.in|(^|\.)t\.co$|twitter|(^|\.)x\.com$|telegram|(^|\.)t\.me$|reddit/.test(h)) return 's';
+  return 'o';
+}
+function jvCountView() {
+  const today = new Date().toLocaleDateString('en-CA'), last = jvStore.get('jv_last');   // local YYYY-MM-DD
+  jvStore.set('jv_last', today);
+  jvHit('view', { u: last !== today ? 1 : 0, n: last ? 0 : 1, m: /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) ? 1 : 0, s: jvSource() });
+}
+document.addEventListener('click', (ev) => { const a = ev.target.closest && ev.target.closest('a[href*="chromewebstore.google.com"]'); if (a) jvHit('chrome'); }, true);
+if (document.readyState === 'complete') setTimeout(jvCountView, 0); else window.addEventListener('load', () => setTimeout(jvCountView, 0), { once: true });
 
 /* ---------------- router ---------------- */
 (async function () {
